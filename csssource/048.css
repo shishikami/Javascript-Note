@@ -1,0 +1,102 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-size: 0px;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+.tabsbox {
+    width: 800px;
+    height: 400px;
+    position: absolute;
+    left: 50%;
+    top: 180px;
+    margin-left: -400px;
+
+    /* background-color: #ccc; */
+    font-size: 14px;
+
+    border: 1px solid black;
+}
+
+.firstnav {
+    height: 58px;
+    width: 798px;
+    border-bottom: 1px solid black;
+    /* background-color: #999; */
+}
+
+.firstnav ul li {
+    display: inline-block;
+    position: relative;
+    height: 58px;
+    width: 100px;
+    /* background-color: #666; */
+
+    /* border-radius: 16px 0px 16px 16px; */
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+/* 选中样式 */
+.liactive {
+    border-bottom: 1px solid white !important;
+}
+
+.firstnav ul li span:nth-child(1) {
+    display: block;
+    width: 100px;
+    height: 57px;
+
+    font-size: 16px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.firstnav ul li span:nth-child(2) {
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    top: 0px;
+    right: 0px;
+
+    font-size: 16px;
+    text-align: center;
+    line-height: 16px;
+}
+
+.tabscon {
+    position: relative;
+    width: 798px;
+    height: 340px;
+}
+
+.tabscon section {
+    position: relative;
+    width: 798px;
+    height: 340px;
+
+    font-size: 14px;
+    line-height: 30px;
+    display: none;
+}
+
+.conactive {
+    display: block !important;
+}
+
+/* tabAdd部分 */
+.tabadd {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 30px;
+    height: 30px;
+
+    font-size: 25px;
+    line-height: 25px;
+    text-align: center;
+
+    border: 1px solid skyblue;
+}

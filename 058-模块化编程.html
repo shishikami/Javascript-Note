@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modules</title>
+</head>
+
+<body>
+    <script>
+        // import export
+        // export规定对外接口
+        // import导入其他模块的功能
+    </script>
+
+    <script type="module">
+        import * as m1 from './jssource/058-module.js';
+        console.log(m1);
+        // 一、通用方式：
+        // 1.分别暴露：
+        // export a;
+        // export b;
+
+        // 2.统一暴露：
+        // export {a,b};
+
+        // 3.默认暴露：
+        // export default{
+        //    ...;
+        // }
+        // 取数据m3.default.a
+
+        // 二、解构赋值方式：
+        import { value, damn } from './jssource/058-module.js';
+        console.log(value);
+        console.log(damn);
+        // 名称冲突可以使用别名
+        // import { value as val, damn } from './jssource/058-module.js';
+
+        // 对于默认暴露
+        // import {default as m3} from ...
+
+        // 三、针对默认暴露的简便形式：
+        // import m3 from ...
+        // 返回对象，包含对应属性
+
+
+        // 采取入口文件形式：
+        // script src="..." type="module"
+    </script>
+
+    <script>
+        // 模块转化
+        // 工具 babel-cli babel-preset-env broswerify
+    </script>
+</body>
+
+</html>

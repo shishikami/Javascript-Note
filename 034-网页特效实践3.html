@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网页特效实践</title>
+    <script>
+        // 页面被卷去的头部 window.pageYOffset
+        // 左侧 window.pageXOffset
+        // 对于元素而言是 element.scrollTop/Left
+    </script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .w {
+            width: 1200px;
+            margin: 0px auto 10px auto;
+        }
+
+        .header {
+            height: 600px;
+            background-color: #ebebeb;
+        }
+
+        .main {
+            height: 1200px;
+            background-color: #ccc;
+        }
+
+        .footer {
+            height: 600px;
+            background-color: #999;
+        }
+
+        .side-bar {
+            position: absolute;
+            width: 40px;
+            height: 80px;
+            right: 20px;
+            top: 610px;
+        }
+
+        .go-back {
+            background-color: pink;
+            display: block;
+            width: 40px;
+            height: 60px;
+            line-height: 30px;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="side-bar">
+        <span class="go-back">返回顶部</span>
+    </div>
+    <div class="header w"></div>
+    <div class="main w"></div>
+    <div class="footer w"></div>
+
+    <script>
+        var sideBar = document.querySelector('.side-bar');
+
+        document.addEventListener('scroll', function () {
+            // console.log(pageYOffset);
+            if (pageYOffset >= 610) {
+                sideBar.style.position = 'fixed';
+                sideBar.style.top = '50%';
+            }
+            else {
+                sideBar.style.position = 'absolute';
+                sideBar.style.top = '610px';
+            }
+        })
+    </script>
+</body>
+
+</html>

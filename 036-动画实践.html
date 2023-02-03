@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动画实践</title>
+    <script src="jssource/036-动画实践.js"></script>
+    <style>
+        * {
+            margin:0px;
+            padding:0px;
+            list-style:none;
+        }
+
+        a {
+            text-decoration: none;
+            color:black;
+        }
+
+        .show img {
+            width: 800px;
+            height: 480px;
+        }
+
+        .show .display_bar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width: 4000px;
+            height: 480px;
+        }
+
+        .show .display_bar>li{
+            display: inline-block;
+            width: 800px;
+            height: 480px;
+        }
+
+        .show {
+            position: relative;
+            overflow:hidden;
+            width: 800px;
+            height: 480px;
+            margin:100px auto 0px auto;
+            font-size:0px;
+        }
+
+        #btn_l {
+            position:absolute;
+            left:0px;
+            top:50%;
+            height: 50px;
+            width: 30px;
+            line-height: 50px;
+            font-size:25px;
+            background-color: rgba(255,255,255,.6);
+            margin-top: -25px;
+            text-align: center;
+            border-radius: 0 50% 50% 0;
+            display: none;
+            z-index: 5;
+        }
+
+        #btn_r {
+            position:absolute;
+            top:50%;
+            right:0px;
+            height: 50px;
+            width: 30px;
+            line-height: 50px;
+            font-size:25px;
+            background-color: rgba(255,255,255,.6);
+            margin-top: -25px;
+            text-align: center;
+            border-radius: 50% 0 0 50%;
+            display: none;
+            z-index: 5;
+        }
+
+        .nav_bar {
+            position:absolute;
+            bottom: 5px;
+            left:50%;
+            background-color: rgba(255,255,255,0.1);
+            border-radius:6px;
+            margin-left:-40px;
+        }
+
+        .nav_bar li {
+            display: inline-block;
+            margin:4px 4px 4px 4px;
+            background-color: rgba(255,255,255,.4);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .current {
+            background-color: rgba(255,255,255,.9) !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="show">
+        <a href="javascript:;" id="btn_l" class="btn"><</a>
+        <a href="javascript:;" id="btn_r" class="btn">></a>
+        <ul class="display_bar">
+            <li><img src="imgsource/bg1.jpg"></li>
+            <li><img src="imgsource/bg2.jpg"></li>
+            <li><img src="imgsource/bg3.jpg"></li>
+            <li><img src="imgsource/bg4.jpg"></li>
+        </ul>
+        <ul class="nav_bar">
+        </ul>
+    </div>
+</body>
+</html>

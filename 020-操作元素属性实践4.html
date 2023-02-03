@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>操作元素属性</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .clearfix::after {
+            content: '';
+            visibility: hidden;
+            clear: both;
+            height: 0;
+            display: block;
+        }
+
+        .clear_fix {
+            overflow: hidden;
+        }
+
+        .tab_list {
+            background-color: #ccc;
+            width: 640px;
+            margin: 20px auto 0px 20px;
+        }
+
+        .tab_list li {
+            box-sizing: border-box;
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+            width: 160px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            float: left;
+            list-style: none;
+        }
+
+        .current {
+            background-color: #c81623;
+            color: #fff;
+        }
+
+        .tab_con {
+            box-sizing: border-box;
+            border: 1px solid black;
+            padding: 20px;
+            width: 640px;
+            height: 200px;
+            margin-left: 20px;
+            background-color: white;
+        }
+
+        .tab_con div {
+            display: none;
+        }
+
+        #con_1 {
+            margin-left: 50px;
+        }
+
+        #con_1 td {
+            font-size: 16px;
+            color: gray;
+            width: 180px;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        #con_2 {
+            margin-left: 10px;
+        }
+
+        #con_2 td {
+            padding-left: 20px;
+            font-size: 16px;
+            color: gray;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .align_r {
+            width: 80px !important;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tab">
+        <div class="tab_list">
+            <ul class="clear_fix">
+                <li class="current">商品介绍</li>
+                <li>规格详情</li>
+                <li>售后保障</li>
+                <li style="border-right: 1px solid black;">商品评价</li>
+            </ul>
+        </div>
+        <div class="tab_con">
+            <div class="item" id="con_1" style="display:block">
+                <table>
+                    <tr>
+                        <td>品牌:三无产品(sb)</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>商品名称:大傻逼郭政都</td>
+                        <td>商品编号:gzd-sb</td>
+                        <td>商品毛重:63kg</td>
+                    </tr>
+                    <tr>
+                        <td>教育水平:文盲</td>
+                        <td>学历:略</td>
+                        <td>身体素质:欠佳</td>
+                    </tr>
+                    <tr>
+                        <td>性格:暴躁易怒</td>
+                        <td>德行:道德败坏</td>
+                        <td>选购指数:-10~0</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="item" id="con_2">
+                <table>
+                    <tr>
+                        <td>主体参数</td>
+                        <td class="align_r">产品品牌</td>
+                        <td>暂无</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="align_r">认证型号</td>
+                        <td>sb-trash</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="align_r">产品型号</td>
+                        <td>sb-trash</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="align_r">产品类型</td>
+                        <td>应急食品</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="align_r">质量测评</td>
+                        <td>劣质</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="item">暂无</div>
+            <div class="item">评价</div>
+        </div>
+    </div>
+
+    <script>
+        var tab_list = document.querySelector('.tab_list');
+        var li_list = tab_list.getElementsByTagName('li');
+        var index = document.querySelector('.tab_con').querySelectorAll('.item');
+
+        for (var i = 0; i < li_list.length; ++i) {
+            li_list[i].setAttribute('index', i);
+        }
+
+        for (var i = 0; i < li_list.length; ++i) {
+            li_list[i].onclick = function () {
+                for (var j = 0; j < li_list.length; ++j) {
+                    li_list[j].className = '';
+                }
+                this.className = 'current';
+
+                for (var k = 0; k < index.length; ++k) {
+                    index[k].style.display = 'none';
+                }
+                var cur_index = this.getAttribute('index');
+                // console.log(cur_index);
+                index[cur_index].style.display = 'block';
+            }
+        }
+    </script>
+</body>
+
+</html>

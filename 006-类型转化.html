@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>类型转化</title>
+    <script>
+        //数字型转化为字符串
+        //方法一
+        var num1 = 10;
+        var str1 = num1.toString();
+        console.log(str1);
+        //方法二
+        console.log(String(num1));
+        //方法三(隐式转换)
+        console.log(num1 + '');
+        console.log('---------------------------------------')
+
+        //转换为数字型
+        //方法一 parseInt(string)函数 得到的是整数,直接截断小数部分 非开头的非数字部分被舍去 
+        console.log(parseInt('78'));
+        console.log(parseInt('78.1'));
+        console.log(parseInt('78pm'));   //78
+        console.log(parseInt('mp78pm')); //NaN
+        //console.log(typeof parseInt('78'));
+        console.log('---------------------------------------')
+
+        //方法二 parseFloat(string) 得到浮点数 其余同上
+        console.log(parseFloat('3.14'));
+        console.log(parseFloat('3.14px'));
+        console.log(parseFloat('a3.14'));
+        console.log('---------------------------------------')
+
+        //方法三 Number()
+        var str = '100'
+        console.log(Number(str));
+        console.log(typeof Number(str));
+        console.log(Number('998'));
+        console.log('---------------------------------------')
+
+        //方法四 利用 - * / 进行隐式转化
+        console.log('10' - 0);
+        console.log(typeof ('10' - 0));
+        console.log('10' * 1);
+        console.log(typeof ('10' * 0));
+        console.log('10' / 1);
+        console.log(typeof ('10' / 0));
+        console.log('10' - '9');
+        console.log(typeof ('10' - '9'));
+        console.log('---------------------------------------')
+
+        //转化为boolean型
+        //Boolean()
+        //仅有5个为false
+        console.log(Boolean(0));
+        console.log(Boolean(''));
+        console.log(Boolean(NaN));
+        console.log(Boolean(null));
+        console.log(Boolean(undefined));
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

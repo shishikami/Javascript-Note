@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作用域</title>
+    <script>
+        // es6之前: 全局作用域 局部作用域
+        // 全局作用域:整个script标签或者一个单独的js文件
+        // 局部作用域:在函数内部就是局部作用域
+
+        function test1() {
+            var a = 10;
+        }
+        //console.log(a); //a未定义
+
+        // 全局变量 全局作用域下的变量
+        // 在浏览器关闭时才销毁，比较耗费内存资源
+        // 局部变量 函数内部的变量就是局部变量，只能在函数内部访问
+        // 程序执行完毕后销毁，比较节约内存
+
+        //在函数内部，未声明直接赋值的变量也是全局变量！
+
+        // 作用域链
+        // 采用链式查找，即就近原则
+        var a = 10;
+        function test2() {
+            var a = 20;
+            function test3() {
+                var a = 30;
+                console.log(a);
+            }
+            test3();
+        }
+        test2();
+        console.log('-----------------------------------');
+
+        // 预解析
+        console.log(b); //undefined
+        var b = 10;
+
+        //c(); //报错
+        var c = function () {
+            console.log(10);
+        }
+
+        // js引擎运行 预解析 再进行代码执行
+        // 预解析 js引擎将所有var 和function 提升到当前作用域的最前面
+        // 分为 变量预解析（变量提升） 和 函数预解析（函数提升）
+        // 变量预解析（变量提升）：所有var的声明（不提升赋值） 提升到当前作用域的最前面
+        // 函数预解析（函数提升）：所有function的声明 提升到当前作用域的最前面 不调用
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

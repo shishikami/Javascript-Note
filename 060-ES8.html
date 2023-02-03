@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <title>ES8</title>
+</head>
+
+<body>
+    <script>
+        // async await
+        // 两种语法结合可以让异步代码变得像同步代码一样
+
+        // async函数：
+        // 返回结果为promise对象，其结果由async函数返回值决定
+        async function fn() {
+            // 不论return什么都会返回promise对象
+            // 只要返回类型不是promise对象，哪怕是undifined也会是成功的promise对象
+            // 抛出错误则返回失败promise对象
+            // 返回promise对象时：
+            return "我是傻逼";
+        }
+
+        async function fn2() {
+            return new Promise((resolve, reject) => {
+                // resolve("Success");
+                reject("Error");
+            })
+        }
+
+        let res = fn();
+        let res2 = fn2();
+        console.log(res);
+        console.log(res2);
+
+        // await表达式：
+        // 必须放在async函数中
+        // 右侧表达式一般为promise对象
+        // 返回结果为promise对象成功的值
+        // 若promise对象失败，则抛出异常，需要try...catch...处理
+
+        const p = new Promise((resolve, reject) => {
+            // resolve("Success");
+            reject("Error");
+        })
+        async function fn3() {
+            try {
+                let res3 = await p;
+                console.log(res3);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        fn3();
+    </script>
+
+    <script>
+        function sendAJAX(url) {
+            return new Promise((resolve, reject) => {
+                const x = new XMLHttpRequest();
+                x.open("GET", url);
+                x.send();
+                x.onreadystatechange = function () {
+                    if (x.readyState === 4) {
+                        if (x.status >= 200 && x.status <= 299) {
+                            resolve(x.response);
+                        }
+                    } else {
+                        reject(x.status);
+                    }
+                }
+            })
+        }
+
+        async function main() {
+            // let result = await sendAJAX("...");
+            // console.log(result);
+        }
+    </script>
+
+    <script>
+        // 对象方法扩展
+        const person = {
+            name: "abc",
+            age: 20,
+            sub: ["Eng", "C++", "Java"]
+        }
+        // 获取所有键
+        console.log(Object.keys(person));
+        // 获取所有值
+        console.log(Object.values(person));
+        // 返回数组，每个成员又是一个数组，第一个值为键，第二个为值
+        // 便于生成Map
+        console.log(Object.entries(person));
+
+        // 对象属性的描述对象
+        console.log(Object.getOwnPropertyDescriptors(person));
+
+    </script>
+</body>
+
+</html>

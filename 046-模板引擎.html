@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板引擎</title>
+    <script src="jssource/template-web.js"></script>
+    <script src="jssource/jquey.min.js"></script>
+    <script>
+        // 根据指定的模板结构和数据，生成完整的HTML页面
+        // 减少字符串拼接操作，代码结构更清晰，易于阅读和维护
+
+        // art-template引擎
+        // https://aui.github.io/art-template/zh-cn/docs/installation.html
+        // 导入 定义数据 定义模板 调用template函数 渲染HTML
+        // template('模板id','需要渲染的数据')
+        // 需要修改<script type='text/html'>
+        
+        // art-template标准语法
+        // 输出：
+        // {{value}} {{obj.key}} {{obj['key']}} {{a?b:c}} {{a || b}} {{a+b}}
+        // 原文输出：变量里如果包含HTML标签的内容，需要用这个
+        // {{@ value}}
+        // 条件输出：{{if value}}内容{{/if}}
+        //           {{if v1}}内容1{{else if v2}}内容2{{/if}}
+        // 循环输出：
+        // {{each arr}}
+        //     {{$index}}{{$value}}
+        // {{/each}}
+        // 过滤器：
+        // {{value | filterName}}
+        // 定义过滤器 template.defaults.imports.filterName = function(value){...return newValue}
+        // 过滤器最后一定要return一个值，{{}}中会显示返回值 
+
+        // 正则表达式
+        // exec() 检索字符串中正则表达式的匹配值，没有则返回null
+        // 正则表达式中()包起来的内容表示分组，可以通过分组提取自己想要的内容
+        // replace() 在字符串中替换指定字符串
+    </script>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <script type="text/html" id="tpl-user">
+        <h1>{{name}}</h1>
+        <h2>{{age}}</h2>
+    </script>
+    <script>
+        var data = { name: 'zhangsan', age: 19 }
+
+        // 调用template函数
+        var htmlstr = template("tpl-user", data);
+        // 渲染html结构
+        $('#container').html(htmlstr);
+    </script>
+</body>
+
+</html>

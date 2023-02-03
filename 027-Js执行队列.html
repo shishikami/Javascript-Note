@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js执行队列</title>
+    <script>
+        // Js特点 单线程语言，同一时间只能做一件事
+        // 导致所有任务需要排队，前一个任务结束才能执行下一个，Js执行时间过长会导致渲染不连贯，渲染加载堵塞
+
+        // H5提出了Web Worker标准，允许Js创建多个线程，为此Js有同步和异步
+        // 同步：任务按顺序排列并执行
+        // 异步：多个任务同时进行
+        // 区别在于任务执行顺序不同
+
+        // 同步任务：在主线程上执行，形成一个执行栈
+        // 异步任务：添加到任务队列/消息队列 通过回调函数执行，分为以下类型：
+        // 普通事件：onclick resize
+        // 资源加载：onload error
+        // 定时器：setTimeout setInterval
+
+        // Js执行机制
+        // 首先执行同步任务，将异步任务放入任务队列
+        // 一旦执行栈中同步任务执行完毕，查看任务队列中的异步任务，使其结束等待进入执行栈，开始执行
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

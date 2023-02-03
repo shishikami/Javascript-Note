@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES9</title>
+</head>
+
+<body>
+    <script>
+        // 解构赋值形式参数
+        function fn({ host, port, username, password }) {
+            console.log(host);
+            console.log(port);
+            console.log(username);
+            console.log(password);
+        }
+        // 对于对象的rest参数
+        function fn2({ host, port, ...user }) {
+            console.log(host);
+            console.log(port);
+            console.log(user);
+        }
+
+        fn({
+            host: "127.0.0.1",
+            port: 3306,
+            username: "root",
+            password: "root"
+        })
+        fn2({
+            host: "127.0.0.1",
+            port: 3306,
+            username: "root",
+            password: "root"
+        })
+    </script>
+
+    <script>
+        const attackq = {
+            q: "宴请四方"
+        }
+
+        const attackw = {
+            w: "致残打击"
+        }
+
+        const attacke = {
+            e: "有情铁手"
+        }
+
+        const fw = { ...attackq, ...attackw, ...attacke };
+        console.log(fw);
+    </script>
+
+    <script>
+        // 命名扩展 命名捕获分组
+        let str = '<a href="http://...">abc</a>'
+        // 提取url与标签文本
+        const reg = /<a href="(?<url>.*)">(?<text>.*)<\/a>/;
+
+        const result = reg.exec(str);
+        console.log(result);
+
+        // 正则扩展 反向断言
+        // 正向断言 根据后面的内容做判断
+        let str2 = "123456gzddsb12138aaaaaaaaaaaaaaa";
+        const reg2 = /\d+(?=a)/;
+        const result2 = reg2.exec(str2);
+        console.log(result2);
+        // 反向断言 根据前边的
+        const reg3 = /(?<=b)\d+/;
+        const result3 = reg3.exec(str2);
+        console.log(result3);
+
+        // dotAll模式
+        // dot . 元字符 除换行符之外的任意单个字符
+        let str3 = "<a></a><a></a>";
+        const reg4 = /<a>(.*?)<\/a>/s;
+        // //s表示.可以匹配任意字符 
+        const result4 = reg4.exec(str3);
+        console.log(result4);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echarts</title>
+    <script src="jssource/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .box {
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+    <script>
+        // 使用
+        // 1.引入js文件
+        // 2.设置有大小的DOM容器
+        // 3.初始化Echarts对象
+        // 4.设置配置项和数据
+        // 5.配置数据赋予Echarts实例对象
+
+        // API
+        // https://echarts.apache.org/zh/api.html#echarts
+        // https://echarts.apache.org/handbook/zh/get-started/
+        // 素材库
+        // https://echarts.apache.org/examples/zh/index.html#chart-type-line
+
+        // 相关配置
+        // https://echarts.apache.org/zh/option.html#title
+        // title 标题组件
+        // tooltip 提示框组件
+
+        window.addEventListener("load", function () {
+            var myChart = echarts.init(document.querySelector(".box"));
+            var option = {
+                title: {
+                    text: 'ECharts 入门示例'
+                },
+                tooltip: {},
+                legend: {
+                    data: ['销量']
+                },
+                xAxis: {
+                    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+                },
+                yAxis: {},
+                series: [
+                    {
+                        name: '销量',
+                        type: 'bar',
+                        data: [5, 20, 36, 10, 10, 20]
+                    }
+                ]
+            };
+            myChart.setOption(option);
+        })
+    </script>
+</head>
+
+<body>
+    <div class="box">
+
+    </div>
+</body>
+
+</html>

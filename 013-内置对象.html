@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内置对象</title>
+    <script>
+        // 对象： 自定义对象 内置对象 浏览器对象
+        //             ECMAScript     Js独有的
+        // 内置对象:Js自带，实现基本/必要功能 （属性/方法）
+        // Math Date Array String
+
+        // Math对象
+        console.log(Math.PI);
+        console.log(Math.E);
+        console.log(Math.LN10);
+
+        console.log(Math.max(1, 99, 33, 28));
+        console.log(Math.max(1, 99, 'abc', 28)); //给定参数中有无法转化为数字的将返回NaN
+        console.log(Math.max()); //-infinity
+
+        // .floor() 向下取整
+        // .ceil()  向上取整
+        // .round() 四舍五入
+        // .abs()   取绝对值 存在隐式转化
+        // .max() .min()
+
+        // Math.random() [0,1)
+        // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math/random random相关知识
+        console.log(Math.random());
+
+        console.log('----------------------------------------')
+
+        // Date对象
+        // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Date Date相关知识
+        var date1 = new Date();
+        console.log(date1);
+
+        // 参数常用写法
+        // 2022,8,8  或  '2022-8-8 12:45:00' 更推荐字符串类型
+        var date2 = new Date(2022, 8, 8);
+        // 月数会加一
+        console.log(date2);
+        var date3 = new Date('2022-8-8 12:45:00');
+        console.log(date3);
+
+        // 获取总时间毫秒数
+        console.log(date1.getTime());
+        console.log(date1.valueOf());
+        // 简写
+        var date4 = +new Date();
+        console.log(date4);
+        // H5新增
+        console.log(Date.now());
+
+        var cD = function (time) {
+            var nowTime = +new Date();
+            var targetTime = +new Date(time);
+            var surplusTime = (targetTime - nowTime) / 1000; // 将毫秒转化为秒
+            var d = parseInt(surplusTime / 60 / 60 / 24);
+            var h = parseInt(surplusTime / 60 / 60 % 24);
+            h = h < 10 ? '0' + h : h;
+            var m = parseInt(surplusTime / 60 % 60);
+            m = m < 10 ? '0' + m : m;
+            var s = parseInt(surplusTime % 60);
+            s = s < 10 ? '0' + s : s;
+            return d + '天' + h + '小时' + m + '分' + s + '秒';
+        }
+        console.log(cD('2023-2-1 13:04:00'));
+
+        console.log('-------------------------------------------------')
+
+        // Array对象
+        // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+        // 创建数组：
+        // 1、字面量
+        var arr1 = [1, 23, 45];
+        console.log(arr1);
+        // 2、new 方法
+        var arr2 = new Array(2); //空数组，两个空元素
+        var arr3 = new Array(2, 3) //有两个元素的数组 ==[2,3]
+        console.log(arr2);
+        console.log(arr3);
+
+        // 检测是否为数组
+        // 1  obj instanceof class
+        console.log(arr1 instanceof Array);
+        console.log(Object instanceof Array);
+        // 2 Array.isArray(obj)
+        var obj1 = 'gzd傻逼';
+        console.log(Array.isArray(arr3));
+        console.log(Array.isArray(obj1));
+
+        // push() 方法将一个或多个元素添加到数组的末尾，并返回该数组的新长度
+        var len1 = arr1.push('gzd傻逼');
+        console.log(arr1);
+        console.log(len1);
+        // unshift() 方法将一个或多个元素添加到数组的开头，并返回该数组的新长度（该方法修改原有数组）
+        len1 = arr1.unshift('gzd真傻逼', 'gzd大傻逼');
+        console.log(arr1);
+        console.log(len1);
+        // pop() 方法从数组中删除最后一个元素，并返回该元素的值。此方法会更改数组的长度。
+        var temp1 = arr1.pop();
+        console.log(arr1);
+        console.log(temp1);
+        // shift() 方法从数组中删除第一个元素，并返回该元素的值。此方法更改数组的长度。
+        temp1 = arr1.shift();
+        console.log(arr1);
+        console.log(temp1);
+
+        console.log('--------');
+
+        // sort() reverse()
+        console.log(arr1.reverse());
+        // reverse() 默认按unicode码进行排序 sort([compareFunction])
+        var arr4 = [1, 23, 18, 78, 8];
+        console.log(arr4.sort());
+        console.log(arr4.sort(
+            function (a, b) {
+                return a - b;
+            }
+        ));
+        // 数组索引方法 indexOf()方法返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回-1。
+        console.log(arr4.indexOf(23));
+        // lastIndexOf() 方法返回指定元素（也即有效的 JavaScript 值或变量）
+        // arr.lastIndexOf(searchElement[, fromIndex])
+        // 在数组中的最后一个的索引，如果不存在则返回 -1。从数组的后面向前查找，从 fromIndex 处开始。
+
+        // toString() 返回一个字符串，表示指定的数组及其元素。
+        console.log(arr4.toString());
+        // join() 方法将一个数组（或一个类数组对象）的所有元素连接成一个字符串并返回这个字符串。
+        // 如果数组只有一个项目，那么将返回该项目而不使用分隔符。
+        console.log(arr4.join('-'));
+
+        // concat() 方法用于合并两个或多个数组。此方法不会更改现有数组，而是返回一个新数组。
+
+        // slice() 方法返回一个新的数组对象
+        // 这一对象是一个由 begin 和 end 决定的原数组的浅拷贝（包括 begin，不包括end）。原始数组不会被改变。
+
+        // splice() 方法通过删除或替换现有元素或者原地添加新的元素来修改数组，并以数组形式返回被修改的内容。
+        // 此方法会改变原数组。
+
+        console.log('-------------------------------------------');
+
+        // 字符串对象
+        // 基本包装类型 将简单数据类型 包装为 复杂数据类型
+        // e.g. var str = 'gzd' --> var temp = new String('gzd');
+        //                          var str = temp; 随后销毁temp
+
+        // 字符串不可变，改变的是地址 这将导致新空间的开辟
+        // 字符串一切操作不修改原对象 均是返回新对象
+
+        // charAt(index) 返回对应字符
+        var str1 = 'gzd';
+        console.log(str1.charAt(0));
+        // charCodeAt(index) 返回字符ASCII码（判断键盘交互）
+
+        // H5新增的
+        // str[i]
+        var str2 = 'gzdsb';
+        console.log(str2[0]);
+
+        // e.g. 判断出现次数最多的字符
+        var str3 = 'abbcccddddeeeeefghijklmnopqrst';
+        var str4 = 'aaabbcddddd';
+        function charCount(str) {
+            var o = {};
+            var chars;
+            var tchar = '';
+            var max = 0;
+            for (var i = 0; i < str.length; i++) {
+                chars = str.charAt(i);
+                if (o[chars]) {
+                    o[chars]++;
+                    if (max < o[chars]) {
+                        max = o[chars];
+                        tchar = chars;
+                    }
+                }
+                else {
+                    o[chars] = 1;
+                    if (max < 1) {
+                        max = 1;
+                        tchar = chars;
+                    }
+                }
+            }
+            return [o, tchar, max];
+        }
+        console.log(charCount(str4));
+        console.log(charCount(str3));
+
+        // concat() 方法将一个或多个字符串与原字符串连接合并，形成一个新的字符串并返回。
+
+        // str.substring(indexStart[, indexEnd])
+        // indexStart 需要截取的第一个字符的索引，该索引位置的字符作为返回的字符串的首字母
+        // indexEnd   可选。一个 0 到字符串长度之间的整数，以该数字为索引的字符不包含在截取的字符串内。
+
+        // replace()  str.replace(regexp|substr, newSubStr|function)
+        // 方法返回一个由替换值（replacement）替换部分或所有的模式（pattern）匹配项后的新字符串。
+        // 模式可以是一个字符串或者一个正则表达式，替换值可以是一个字符串或者一个每次匹配都要调用的回调函数。
+        // 如果pattern是字符串，则仅替换第一个匹配项。
+        var str7 = 'abc';
+        console.log(str7.replace('a', 'b'));
+
+        // split() 方法使用指定的分隔符字符串将一个String对象分割成子字符串数组，以一个指定的分割字串来决定每个拆分的位置。
+        var str8 = 'abc,def,ghi';
+        console.log(str8.split(','));
+
+        // toLowerCase() 会将调用该方法的字符串值转为小写形式，并返回。
+        // toUpperCase() 方法将调用该方法的字符串转为大写形式并返回（如果调用该方法的值不是字符串类型会被强制转换）。
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Es6</title>
+    <script>
+        // Es6之前没有extends关键字 采用构造函数+原型对象模拟继承（组合继承
+        
+        // call() 可以调用函数并且修改函数运行时的this指向
+        // function.call(thisArg，arg1，arg2...)
+        // thisArg当前函数运行时this指向的对象
+        // arg1、arg2...参数
+
+        // 通过call()把父类型的this指向子类型的this，实现子类型继承父类型属性
+
+        // class本质还是function（类是构造函数的另一种写法
+        // class所有属性定义在prototype上
+        // 类实例也有__protp__指向类的prototype
+
+        // Es5新增方法
+        // 数组方法
+        // forEach map() filter() some() every()
+
+        // array.forEach(function(currentValue,index,arr))
+        // currenValue当前项的值
+        // index当前项的索引
+        // arr数组本身对象
+
+        // array.filter(function(currentValue,index,arr))
+        // currenValue当前项的值
+        // index当前项的索引
+        // arr数组本身对象
+        // 返回一个新数组，用于筛选数组中符合条件的元素
+
+        // array.some(function(currentValue,index,arr))
+        // 返回一个布尔值，存在满足条件的元素返回true
+        // 找到第一个满足条件的数据后，ruture true后循环就不再执行了，效率更高
+        // currenValue当前项的值
+        // index当前项的索引
+        // arr数组本身对象
+
+        // 字符串方法
+        // trim方法 从字符串的两端删除空格
+        // str.trim()
+        // 不影响原字符串，返回新字符串
+
+        // Object定义新属性或者修改原属性
+        // Object.defineProperty(obj,prop,descriptor)
+        // 三个对象均必须 obj目标对象 prop需要修改或者定义的属性名称 descriptor目标属性拥有的特性
+        // Object.defineProperty(obj,'num',{
+        //     // value:属性的值
+        //     value:200,
+        //     // writable：值是否可以重写
+        //     writable:false
+        //     // enumerable:目标属性是否可以被枚举 true false
+        //     // false时不允许遍历
+        //     // configurable:目标属性是否可以被删除或者可以再次修改特性 true false 默认为false
+        //     // false时不允许删除、修改特性 （delete obj.attribute
+        // })
+        //
+
+    </script>
+</head>
+
+<body>
+    <script>
+        // function fn(arg){
+        //     console.log(this);
+        //     console.log(arg);
+        //     console.log('zxlsb');
+        // }
+        // fn.call(this,20);
+        // this指向window
+        // var o = {
+        //     name:"xsb",
+        //     age:19
+        // }
+        // fn.call(o,10);
+        // 此时this指向o
+
+        function Father(name,age){
+            // this指向父类型对象实例
+            this.name = name;
+            this.age = age;
+        }
+
+        Father.prototype.money = function(){
+            console.log('穷的就像朱梓华笨比一样');
+        }
+
+        function Son(name,age,score){
+            // 调用父类构造函数,没有使用原型对象，没有money方法
+            Father.call(this,name,age);
+            // 可以添加自己的属性
+            this.score = score;
+        }
+        // 不能通过 Son.prototype = Father.prototype使子类继承父类prototype的属性
+        // 修改子原型对象会导致父原型对象改变
+
+        // 使用Son.prototype = new Father();
+        // 记得修改prototype中的constructor属性
+    </script>
+</body>
+
+</html>

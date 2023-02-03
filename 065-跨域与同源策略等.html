@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跨域与同源策略等</title>
+    <script src="jssource/jquery.js"></script>
+</head>
+
+<body>
+    <script>
+        // 同源：
+        // 两个页面的 协议、域名和端口号 都相同，则认为两个页面有相同的源
+
+        // 同源策略 Same origin policy
+        // 浏览器的安全功能
+        // MDN官方概念：限制了从同一个源加载的文档或脚本如何与来自另一个源的资源进行交互
+        //             用于隔离潜在而已文件的重要安全机制
+        // 无法读取非同源网页的Cookie LocalStorage IndexedDB
+        // 无法接触非同源网页的DOM
+        // 无法向非同源地址发送Ajax请求
+
+        // 跨域
+        // 非同源
+        // 出现跨域的根本原因 浏览器的同源策略
+
+        // 浏览器对跨域请求的拦截
+        // 跨域请求可以正常发起
+        // 浏览器能正常接受到跨域响应的数据
+        // 数据受到同源策略的拦截，无法被页面获取到
+
+        // 跨域请求解决方案 JSONP CORS
+        // JSONP 出现的早，兼容性好
+        //       解决问题被迫想出来的临时解决方案
+        //       只支持GET请求 不支持POST
+        // CORS  出现的晚，是W3C标准 属于跨域Ajax请求的根本解决方案
+        //       支持POST GET请求
+        //       不兼容低版本浏览器
+
+        // JSONP
+        // <script>标签不受浏览器同源策略的影响 可以通过src属性请求非同源的js脚本
+        // 通过<script>标签的src属性请求跨域的数据接口 通过函数调用的方式接受跨域接口响应回来的数据
+
+        // 实现简单的JSONP
+        function success(data) {
+            console.log(data);
+        }
+    </script>
+    <script src="jssource/JSONP.js"></script>
+
+    <script>
+        // 通过查询字符串的形式告诉服务器callback叫啥
+        // script src="jssource/JSONP.js?callback=success"
+
+        // 与Ajax没有关系
+
+        // jQ的JSONP请求
+        // $.ajax({
+        //     url:'...?name=zs&age=20',
+        //     dataType: 'jsonp',
+        //     success: function (res) {
+        //         console.log(res);
+        //     }
+        // })
+
+        // 自定义JSONP的参数以及回调函数名称：
+        // $.ajax({
+        //     url:'...?name=zs&age=20',
+        //     dataType: 'jsonp',
+        //     发送到服务端的参数名称
+        //     jsonp:'callback',
+        //     自定义的回调函数名称
+        //     jsonpCallback:'abc',
+        //     success: function (res) {
+        //         console.log(res);
+        //     }
+        // })
+
+        // jq采用动态创建和移除<script>标签实现JSONP请求
+        function getSug(kw) {
+            $.ajax({
+                url: 'https://suggest.taobao.com/sug?q=' + kw,
+                dataType: 'jsonp',
+                success: function (res) {
+                    console.log(res);
+                }
+            })
+        }
+
+        getSug("ad");
+    </script>
+</body>
+
+</html>

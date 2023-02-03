@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symbol</title>
+    <script>
+        // Symbol API文档
+        // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol
+
+        // Symbol是新的原始数据类型，类似于字符串
+        // Symbol值是唯一的，用以解决命名冲突
+        // 不能与其他值进行数据运算
+        // 属性不能用for..in遍历，但是可以用Reflect.ownKeys获取所有键名
+
+        // 创建
+        let s = Symbol();
+        let ss = Symbol('gzd');
+        // .for()会创建新对象，但是会先检查之前已经声明的Symbol，如果有的话使用之前的
+        let sss = Symbol.for('zxl');
+        console.log(s);
+
+        // 创建对象属性
+        let obj = {
+            name: 'gzd',
+            [Symbol.for('say')]: function () {
+                console.log('helloWorld');
+            }
+        }
+
+        let methods = {
+            up: Symbol(),
+            down: Symbol()
+        }
+
+        obj[methods.up] = function () {
+            //do sth.
+        }
+
+        // Symbol内置值/属性
+        // Symbol.hasInstance
+        class Person {
+            static [Symbol.hasInstance](param) {
+                console.log(param);
+                console.log('我被调用了');
+            }
+        }
+
+        let o = {};
+
+        console.log(o instanceof Person);
+        // Symbol.isConcatSpreadable
+        arr1 = [1, 2, 3];
+        arr2 = [4, 5, 6];
+        // 控制该值是否可以展开
+        arr2[Symbol.isConcatSpreadable] = false;
+        console.log(arr1.concat(arr2));
+
+        // 迭代器
+        // 一种接口，为数据结构提供统一的访问机制 主要提供for..of
+        // 原生具备iterator接口的数据类型：Array Arguments Set Map String TypedArray NodeList
+        let arr3 = ['zxl', 'gzd', 'xsb'];
+        for (let v of arr3) {
+            // console.log(v);
+        }
+        let i = arr3[Symbol.iterator]();
+        console.log(i.next());
+        console.log(i.next());
+        console.log(i.next());
+        console.log(i.next());
+
+        // 迭代器自定义遍历对象
+        const JS2212 = {
+            name: 'JS2212',
+            stu: [
+                'JS221201',
+                'JS221202',
+                'JS221203'
+            ],
+            [Symbol.iterator]() {
+                let index = 0;
+                let _this = this;
+                return {
+                    next: function () {
+                        if (index < _this.stu.length) {
+                            let result = {
+                                value: _this.stu[index],
+                                done: false
+                            }
+                            index++;
+                            return result;
+                        }
+                        else {
+                            return {
+                                value: undefined,
+                                done: true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        for (let v of JS2212) {
+            console.log(v);
+        }
+
+        // 生成器
+        // 特殊函数：异步编程 纯回调函数
+        // yield 函数代码的分隔符，将代码分割为n+1份，由next()方法执行
+        function* gen() {
+            console.log("abc");
+            yield "abc";
+            console.log("abcd");
+            yield "def";
+            console.log("abcde");
+            yield "ghi";
+            console.log("abcdef");
+            // console.log("hello generator");
+        }
+        // 调用
+        let iterator_new = gen();
+        iterator_new.next();
+        iterator_new.next();
+        iterator_new.next();
+        iterator_new.next();
+        // 遍历
+        for (let v in gen()) {
+            console.log(v);
+        }
+
+        // 生成器函数参数
+        function* generation(arg) {
+            // 第一次next()
+            console.log(arg);
+            // （ 第二次next() ）
+            let a1 = yield 1;
+            console.log(a1);
+            let a2 = yield 2;
+            console.log(a2);
+            let a3 = yield 3;
+            console.log(a3);
+        }
+        let it = generation('AAA');
+        it.next();
+        it.next('BBB');
+        it.next('CCC');
+        // console.log(it.next());
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

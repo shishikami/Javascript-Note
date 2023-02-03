@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>操作元素属性</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #password_bar {
+            position: relative;
+            box-sizing: border-box;
+            width: 600px;
+            height: 40px;
+            font-size: 0;
+        }
+
+        #pwd {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            box-sizing: border-box;
+            width: 400px;
+            height: 40px;
+            line-height: 40px;
+            text-indent: 18px;
+        }
+
+        #pwd_msg {
+            position: absolute;
+            left: 400px;
+            top: 0px;
+            width: 200px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+            text-indent: 30px;
+            color: #999;
+        }
+
+        #wrong_msg {
+            position: absolute;
+            left: 400px;
+            top: 0px;
+            width: 200px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+            text-indent: 30px;
+            color: red;
+        }
+
+        .text_img {
+            position: absolute;
+            left: 5px;
+            top: 10px;
+            width: 20px;
+            height: 20px;
+        }
+
+        #btn_bar {
+            margin-top: 20px;
+        }
+
+        #btn_bar button {
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 18px;
+        }
+
+        table {
+            width: 800px;
+            margin: 100px auto;
+            text-align: center;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        thead tr {
+            height: 30px;
+            background-color: skyblue;
+        }
+
+        tbody tr {
+            height: 30px;
+        }
+
+        tbody td {
+            border-bottom: 1px solid #d7d7d7;
+            font-size: 12px;
+            color: blue;
+        }
+
+        #last_td td {
+            border-bottom: none;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="password_bar">
+        <input type="password" id="pwd">
+        <p id="pwd_msg"><img src='imgsource/exclaimation.png' class="text_img">请输入六到十六位密码</p>
+    </div>
+
+    <script>
+        var psw_bar = document.getElementById('pwd');
+        var msg_bar = document.getElementById('pwd_msg');
+
+        psw_bar.onblur = function () {
+            if (this.value.length < 6 || this.value.length > 16) {
+                msg_bar.innerHTML = '<img src="imgsource/cross-2.png" class="text_img">密码长度错误';
+                msg_bar.id = 'wrong_msg';
+            }
+            else {
+                msg_bar.innerHTML = '<img src="imgsource/right.png" class="text_img">长度适中';
+                msg_bar.style.color = 'green';
+            }
+        }
+        psw_bar.onfocus = function () {
+            if (this.value.length < 6 || this.value.length > 16) {
+                msg_bar.innerHTML = '<img src="imgsource/exclaimation.png" class="text_img">请输入六到十六位密码';
+                msg_bar.id = 'pwd_msg';
+            }
+        }
+    </script>
+
+    <div id="btn_bar">
+        <button>按钮1</button>
+        <button>按钮2</button>
+        <button>按钮3</button>
+        <button>按钮4</button>
+        <button>按钮5</button>
+        <!-- <button>按钮6</button> -->
+    </div>
+
+    <script>
+        // 通过循环获取按钮
+        var btns = document.getElementsByTagName('button');
+        for (var i = 0; i < 5; ++i) {
+            btns[i].onclick = function () {
+                console.log(this.innerHTML + '被点击了');
+                for (var j = 0; j < btns.length; ++j) {
+                    btns[j].innerHTML = '按钮' + (j + 1);
+                    // btns[j].style.outline = 'none';
+                    // btns[j].style.border = 'none';
+                }
+                this.innerHTML = '我被点击了';
+            }
+        } 
+    </script>
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <td><input id="select_all" type="checkbox"></td>
+                    <td>商品</td>
+                    <td>价格</td>
+                </tr>
+            </thead>
+            <tbody id="select_body">
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>郭政都包夜</td>
+                    <td class="money">198元</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>郭政都一颗肾</td>
+                    <td class="money">888元</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>郭政都两片肺叶</td>
+                    <td class="money">200元</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>郭政都仅剩的六根头发</td>
+                    <td class="money">0.01元</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>郭政都自用九成新的脑子</td>
+                    <td class="money">1688元</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>郭政都香吻一个</td>
+                    <td class="money">-520元</td>
+                </tr>
+                <tr id="last_td">
+                    <td></td>
+                    <td></td>
+                    <td id="count">总价:0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        var table_b = document.getElementsByTagName('tr');
+
+        var set_style = function () {
+            var tr_list = table_b[0].getElementsByTagName('td');
+            tr_list[0].style.width = '200px';
+            tr_list[1].style.width = '400px';
+            tr_list[2].style.width = '200px';
+        }
+        set_style();
+
+        var b_all = document.getElementById('select_all');
+        var btn_all = document.getElementById('select_body').getElementsByTagName('input');
+        var btn_line = document.getElementById('select_body').getElementsByTagName('tr');
+        var count_m = document.getElementById('count');
+        var cost_l = document.getElementsByClassName('money');
+
+        var count = function () {
+            var count = 0;
+            for (var i = 0; i < btn_all.length; ++i) {
+                if (btn_all[i].checked) {
+                    count += parseFloat(cost_l[i].innerHTML);
+                    // console.log(count);
+                }
+            }
+            count_m.innerHTML = '总价:' + count;
+        }
+
+        b_all.onclick = function () {
+            for (var i = 0; i < btn_all.length; ++i) {
+                btn_all[i].checked = this.checked;
+            }
+            count();
+        }
+
+        for (var i = 0; i < btn_all.length; ++i) {
+            btn_all[i].onclick = function () {
+                var flag = true;
+                for (var i = 0; i < btn_all.length; ++i) {
+                    if (btn_all[i].checked == false) {
+                        flag = false;
+                    }
+                }
+                b_all.checked = flag;
+                count();
+            }
+        }
+
+        for (var i = 0; i < btn_line.length - 1; ++i) {
+            btn_line[i].onmouseover = function () {
+                this.style.backgroundColor = 'cyan';
+            }
+            btn_line[i].onmouseout = function () {
+                this.style.backgroundColor = 'white';
+            }
+        }
+    </script>
+</body>
+
+</html>

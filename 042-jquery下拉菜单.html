@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery下拉菜单</title>
+    <script src="jssource/jquey.min.js"></script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .nav>li {
+            position: relative;
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+            background-color: #ccc;
+        }
+
+        .nav>li>ul {
+            position: absolute;
+            top: 40px;
+            left: 0px;
+            width: 200px;
+            height: 160px;
+        }
+
+        .nav>li>a {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 200px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="nav">
+        <li>
+            <a href="javascrit:;">微博</a>
+            <ul>
+                <li>
+                    <a href="javascrit:;">评论</a>
+                </li>
+                <li>
+                    <a href="javascrit:;">评论</a>
+                </li>
+                <li>
+                    <a href="javascrit:;">评论</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascrit:;">微博</a>
+            <ul>
+                <li>
+                    <a href="javascrit:;">评论</a>
+                </li>
+                <li>
+                    <a href="javascrit:;">评论</a>
+                </li>
+                <li>
+                    <a href="javascrit:;">评论</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascrit:;">微博</a>
+            <ul>
+                <li>
+                    <a href="javascrit:;">评论</a>
+                </li>
+                <li>
+                    <a href="javascrit:;">评论</a>
+                </li>
+                <li>
+                    <a href="javascrit:;">评论</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascrit:;">微博</a>
+            <ul>
+                <li>
+                    <a href="javascrit:;">评论</a>
+                </li>
+                <li>
+                    <a href="javascrit:;">评论</a>
+                </li>
+                <li>
+                    <a href="javascrit:;">评论</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <script>
+        $(function () {
+            // 鼠标经过
+            $('.nav>li').mouseover(function () {
+                // $(this) jQuery当前对象
+                $(this).children('ul').show();
+            })
+            // 鼠标离开
+            $('.nav>li').mouseout(function () {
+                // $(this) jQuery当前对象
+                $(this).children('ul').hide();
+            })
+        })
+    </script>
+</body>
+
+</html>

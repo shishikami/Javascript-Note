@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数</title>
+    <script>
+        // 函数
+
+        // 一、声明函数
+        // 方法一:function关键字 命名函数
+        // function 函数名() {
+        //     方法体
+        // }
+
+        // 方法二: 函数表达式 匿名函数
+        // var 变量名 = function(){};
+
+        // 方法三：箭头函数
+        const fn = a => {
+            console.log(a);
+        }
+        // 只有一个参数的时候括号可以省略
+        const fn2 = (a, b) => {
+            console.log(a);
+        }
+        fn(1);
+
+        // 二、调用函数
+        // return 只返回一个值，多写的会返回最后一个值
+
+        function getSum(arg1, arg2) {
+            var count = 0;
+            for (var i = arg1; i <= arg2; ++i) {
+                count += i;
+            }
+            return count;
+        }
+
+        function add(arg1, arg2) {
+            console.log(arg1 + arg2);
+        }
+
+        console.log(getSum(1, 10));
+        console.log(getSum(1, 100));
+
+        // 形参和实参不匹配的问题：
+        // 实参多余部分被省略
+        console.log(getSum(1, 2, 3));
+        // 缺少的部分 视作未接收值的变量 为undefined
+        add(1);
+
+        // 函数如果没有返回值，则返回undefined
+
+        function nullfunc() {
+
+        }
+        var result = nullfunc();
+        console.log(result);     //undefined
+
+        // arguments
+        // arguments为函数内置对象，存储了所有传递的实参
+        // 其展示形式为伪数组
+        // 一、具有length属性
+        // 二、按索引方式存储数据，可以遍历
+        // 三、不具有数组的push、pop方法
+        function Arg() {
+            console.log(arguments);
+        }
+
+        Arg(1, 2, 3, 4);
+
+        function addAll() {
+            var count = 0;
+            for (var i = 0; i < arguments.length; ++i) {
+                count += arguments[i];
+            }
+            return count;
+        }
+
+        console.log(addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

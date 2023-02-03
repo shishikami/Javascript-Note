@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES11</title>
+</head>
+
+<body>
+    <script>
+        class Person {
+            //public
+            name;
+            // private
+            #age;
+            #weight;
+
+            constructor(name, age, weight) {
+                this.name = name;
+                this.#age = age;
+                this.#weight = weight;
+            }
+
+            intro() {
+                console.log(this.#age);
+            }
+        }
+
+        const gzd = new Person('gzd', 100, 9999);
+        console.log(gzd);
+        console.log(gzd.name);
+        // console.log(gzd.#age);
+        gzd.intro();
+    </script>
+
+    <script>
+        // Promise.allSettled
+        // 接受Promise数组，返回Promise对象
+        // 返回对象一定是成功，成功的值为所有对象的值
+        const p1 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve("aaaa");
+            }, 1000);
+        })
+        const p2 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve("bbbb");
+            }, 1000);
+        })
+        const p3 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject("cccc");
+            }, 1000);
+        })
+
+        const res = Promise.allSettled([p1, p2, p3]);
+        console.log(res);
+
+        // 相似Promise.all()
+        // 所有对象都成功才会显示成功
+        // 存在失败的情况就返回失败，失败的值为内容中失败的值
+    </script>
+
+    <script>
+        // String.prototype.matchAll
+        let str1 = "<a>afsw</a><a>awfwgt</a>";
+
+        const reg = /<a>(.*?)<\/a>/sg;
+
+        const res2 = str1.matchAll(reg);
+
+        // for (let v of res2) {
+        //     console.log(v);
+        // }
+
+        const arr = [...res2];
+        console.log(arr);
+    </script>
+
+    <script>
+        // 可选链操作符
+        // ?.
+        function fn(config) {
+            // const dbHost = config && config.db && config.db.host;
+            const dbHost = config?.db?.host;
+            console.log(dbHost);
+        }
+
+        fn({
+            db: {
+                host: "1.1.1.1",
+                username: "root"
+            },
+            cache: {
+                host: "1.1.1.1",
+                username: "root"
+            }
+        })
+    </script>
+
+    <button id="btn"></button>
+
+    <script>
+        // 动态引入模块
+        const btn = document.getElementById("btn");
+        btn.addEventListener('click', function () {
+            // import方法
+            // 返回Promise对象
+            // 其成功值为export暴露的对象
+            import('./jssource/058-module.js').then(module => {
+                module.damn();
+            })
+        })
+    </script>
+
+    <script>
+        //BigInt
+        let n = 521n;
+        console.log(n, typeof (n));
+
+        // 函数
+        // 将普通整数值转化为大整数
+        // 不能用浮点数
+        console.log(BigInt(123));
+        let max = Number.MAX_SAFE_INTEGER;
+        console.log(max);
+        console.log(max + 1);
+        // +2 时运算结果出现问题
+        console.log(max + 2);
+
+        // BigInt不能与普通int做运算
+        console.log("BigInt", BigInt(max));
+        console.log(BigInt(max) + BigInt(1));
+        console.log(BigInt(max) + BigInt(2));
+        console.log(BigInt(max) + BigInt(3));
+    </script>
+
+    <script>
+        // globalThis对象
+        // 始终指向全局对象
+        console.log(globalThis);
+    </script>
+</body>
+
+</html>

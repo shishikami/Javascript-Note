@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则表达式</title>
+    <script>
+        // 匹配字符串中字符组合的模式 用于匹配、替换、提取等等
+        // Js中正则表达式也是对象
+        // 灵活性 逻辑性 功能性比较强
+
+        // 创建正则表达式
+        // 1.
+        // 调用RegExp对象构造函数
+        // var a = new RegExp();
+        // 2.利用字面量创建
+        // var rg = /123/;
+
+        // test()测试指定字符串是否符合正则表达式规范
+        // test() 返回true/false
+        // regObj.text(str)
+
+        // 特殊字符 元字符
+        // 1.边界符^ $
+        // ^匹配行首的文本
+        // $匹配行末的文本
+        var rg = /^[abc]*$/; // 正则表达式里面不用加引号
+        console.log(rg.test("abcabc"))
+        // 2.字符类[]
+        // [abc] 只要包含a或者b或者c 任意包含其中之一 就返回true
+        // 2.1 [-] -:范围 [a-z]相当与a-z中所有字符都返回true
+        //                [a-zA-Z0-9]可以任意组合
+        // 2.2 [^] ^在[]内表示取反 与边界符要区分开来
+
+        // 3.量词符 * + ？{n} {n,} {n,m}
+        // * 重复>=0
+        // + 重复>=1
+        // ? 重复1/0
+        // {n} {n,} {n,m} x=n x>=n n<=x<=m
+
+        // 总结：
+        // [] 字符集合 匹配方括号中的任意字符
+        // {} 量词符 表示匹配次数
+        // () 表示优先级
+
+        // 预定义类
+        // \d ~ [0-9]
+        // \D ~ [^0-9]
+        // \z ~ [a-zA-Z0-9_]
+        // \Z ~ [^a-zA-Z0-9_]
+        // \s 匹配空格 换行、空格、制表等 [\t\r\n\v\f]
+        // \S ~ [^\t\r\n\v\f]
+
+        // | 或者符号
+
+        // 正则替换
+        // stringObject.replace(regexp/substr,replacement);
+        // 返回一个替换完毕的新字符串
+        // replace只能替换第一个字符串
+
+        // 正则表达式参数 参数
+        // /statement/[switch]
+        // g 全局匹配 对所有内容进行匹配
+        // i 忽略大小写
+        // gi 全局匹配并且忽略大小写
+
+        // Es6 - Es11
+        // ---------
+
+        // let关键字
+        let b, c;
+        // 变量不能重复声明
+        // 1.let不能重复声明同一个变量(var可以)
+        // 2.块级作用域 全局、函数、eval
+        // 仅存在在当前块内 if else while for
+        // 3.不存在变量提升(变量收集并定义为undefined)
+        // 4.不影响作用域链
+        {
+            let name = "abc";
+            var a = function () {
+                console.log(name);
+            }
+        }
+        a();
+
+        // const关键字
+        // 声明常量，一定要赋初始值，一般常量使用大写
+        // 块级作用域
+        // 对数组和对象元素做修改不算对常量的修改；
+        const FOOD = ['肉包子', 'zzh'];
+        FOOD.push('abc');
+        // 地址没有改变
+
+        // 变量解构赋值
+        // 按一定模式，从变量或者数组中提取值，对变量进行赋值
+        // 1.数组
+        const A = [123, 456, 789, 999];
+        let B = [aq, bq, cq, dq] = A;
+        console.log(aq); //123
+        // 2.对象
+        const C = {
+            name: 123,
+            age: 123,
+            f: function () {
+                console.log("abcd");
+            }
+        }
+        let D = { name, age, f } = C;
+        f(); // abcd
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

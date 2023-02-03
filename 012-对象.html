@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象</title>
+    <script>
+        // 对象是一个具体的事物
+        // 由属性和方法定义
+        // 一、利用字面量创建对象 {}
+
+        var obj1 = {}; //空对象
+
+        // 采用键值对的形式，多个属性中间用逗号隔开
+        // 方法的冒号后是匿名函数
+        var obj2 = {
+            o1name: '张三丰',
+            o1age: 18,
+            o1sex: '男',
+            sayHi: function () {
+                console.log('Hello world!');
+            }
+        }
+
+        // 二、利用new object创建对象
+        var obj3 = new Object();
+        var str = 'zxlsb';
+        obj3.name = '郭政都';
+        obj3.age = 19;
+        obj3['addInfo'] = '傻逼';
+        obj3[str] = '啊对对对';
+        obj3.sayHi = function () {
+            console.log('我想要个女朋友啊！！');
+        }
+        console.log(obj3);
+        console.log(obj3.name);
+        console.log(obj3['age']);
+        obj3.sayHi();
+
+        // 三、利用构造函数创建对象
+        // 把对象的相同的属性和方法抽取出来封装到函数里,构造函数不需要return即可返回结果
+        // function 构造函数名(){
+        //     this.属性 = 值;
+        //     this.方法 = function(){}
+        // }
+
+        // 调用构造函数：
+        // new 构造函数名();
+
+        function People(name, age) {
+            this.name = name;
+            this.age = age;
+            this.methods = function () {
+                console.log('阿巴阿巴~');
+            }
+            this.methods2 = function (num) {
+                console.log(num);
+            }
+        }
+
+        var abc = new People('abc', 18);
+        console.log(typeof abc);
+        abc.methods2('九折九折？');
+
+        // 使用对象
+        // 调用属性： 1.对象名.属性名 2.对象名['属性名']
+        console.log(obj2.o1name);
+        console.log(obj2['o1age'])
+
+        // 调用方法： 对象名.方法名()
+        obj2.sayHi();
+
+        // 遍历对象 for(变量 in 对象)
+        var obj4 = {
+            name4: 'sb',
+            age4: 298,
+            sex: '男'
+        }
+
+        for (var k in obj4) {
+            console.log(k);         //属性名
+            console.log(obj4[k]);    //属性值
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

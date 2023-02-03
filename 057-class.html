@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class</title>
+</head>
+
+<body>
+    <script>
+        class Phone {
+            constructor(brand, price) {
+                this.brand = brand;
+                this.price = price;
+            }
+            // Functions:
+            call() {
+                console.log("....");
+            }
+
+            get price() {
+
+            }
+
+            set price(val) {
+                console.log("1111112222222");
+                this.price = val;
+            }
+        }
+
+        mPhone = new Phone("1", 100);
+        mPhone.price = 20;
+
+        // 对象方法扩展
+        // Object.is()
+        console.log(Object.is(120, 120));
+        console.log(Object.is(NaN, NaN));
+        conso.log(NaN === NaN);
+        // Object.assign()
+        // 如果重名，后者会覆盖前者
+        // Object.setPrototypeOf() & Object.getPrototypeOf()
+    </script>
+</body>
+
+</html>

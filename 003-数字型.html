@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数字型</title>
+    <script>
+        //以0开头表示八进制
+        var a = 010;
+        console.log(a);
+
+        //以0x开头表示十六进制
+        var b = 0x9;
+        var c = 0xa;
+        console.log(b);
+        console.log(c);
+
+        //以0b开头表示二进制
+        var d = 0b110;
+        console.log(d);
+
+        //数字型的最值
+        console.log(Number.MAX_VALUE);
+        console.log(Number.MIN_VALUE);
+
+        //三个特殊值
+        //无穷大、无穷小、非数值
+        console.log(Number.MAX_VALUE * 2);     //Infinity
+        console.log(-Number.MAX_VALUE * 2);    //-Infinity
+        console.log("什么冬梅啊" - 1);         //NaN
+
+        //isNaN() 会先试图将其转化为数字，如果不行返回true
+        console.log(isNaN(1));
+        console.log(isNaN('一'));
+        console.log(isNaN(""));
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件进阶实践</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .search {
+            width: 300px;
+            height: 70px;
+            position: relative;
+        }
+
+        #con {
+            width: 250px;
+            height: 30px;
+            font-size: 18px;
+            line-height: 30px;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            background-color: #999;
+            display: none;
+            text-indent: 2px;
+            border-radius: 5px;
+            /* overflow: hidden; */
+        }
+
+        .jd {
+            box-sizing: border-box;
+            width: 250px;
+            height: 20px;
+            position: absolute;
+            left: 10px;
+            top: 45px;
+            text-indent: 2px;
+        }
+
+        #con::before {
+            box-sizing: border-box;
+            content: '';
+            position: absolute;
+            height: 4px;
+            width: 4px;
+            left: 20px;
+            top: 30px;
+            border: 4px solid #999;
+            border-color: #999 transparent transparent transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="search">
+        <div id="con"></div>
+        <input type="text" placeholder="请输入单号" class="jd">
+    </div>
+
+    <script>
+        var input_t = document.getElementsByClassName('jd');
+        var bar_show = document.getElementById('con');
+        input_t[0].addEventListener('keyup', function (e) {
+            // console.log('输入内容');
+            if (this.value == '') {
+                bar_show.style.display = 'none';
+            }
+            else {
+                bar_show.style.display = 'block';
+                bar_show.innerHTML = this.value;
+            }
+        })
+
+        input_t[0].addEventListener('blur', function () {
+            bar_show.style.display = 'none';
+        })
+
+        input_t[0].addEventListener('focus', function () {
+            if (this.value == '') {
+                bar_show.style.display = 'none';
+            }
+            else {
+                bar_show.style.display = 'block';
+                bar_show.innerHTML = this.value;
+            }
+        })
+    </script>
+</body>
+
+</html>

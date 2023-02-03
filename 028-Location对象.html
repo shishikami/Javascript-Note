@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location</title>
+    <script>
+        // window提供的location属性用于获取或者设置窗体的URL，并且可以用来解析URL
+        // 该属性返回一个对象，也称为Location对象
+
+        // URL:Uniform Resource Locator:互联网上标准资源地址
+        // 互联网上所有文件具有唯一URL，包含的信息指出了文件的位置以及浏览器怎么处理它
+        // protocal://host[:port]/path/[?query]#fragment
+        // protocal 通信协议 常用http ftp maito等
+        // host 主机（域名）
+        // port 端口号 可选（省略时采用默认端口 e.g.http采用端口80）
+        // path 路径 由零或多个/符号隔开的字符串。一般表示主机上的一个目录或者文件地址
+        // query 参数 以键值对的形式 通过&符号分隔开
+        // fragment 片段 #后面的内容 常见于连接锚点
+
+        // location.href 获取 设置整个URL
+        // location.host 返回主机（域名）
+        // location.port 返回端口号 若未写则返回空字符串
+        // location.pathname 路径
+        // location.search 参数
+        // location.hash 片段 锚点/连接
+    </script>
+
+    <style>
+        #jump {
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="jump">页面跳转</button>
+    <button id="jump">停止跳转</button>
+    <div></div>
+
+    <script>
+        var btn = document.querySelectorAll('button');
+        var bar = document.querySelector('div');
+        var count_down = 5;
+        var jump_count = null;
+
+        btn[0].addEventListener('click', function () {
+            this.disabled = true;
+            jump_count = setInterval(function () {
+                if (count_down == 0) {
+                    this.disabled = false;
+                    location.href = 'https://www.bilibili.com/video/BV1Sy4y1C7ha?p=282&vd_source=3ef352fc55dbab4ac5b9746631801f97'
+                }
+                bar.innerHTML = '您将在' + count_down + '秒后进行跳转';
+                count_down--;
+            }, 1000)
+        });
+
+        btn[1].addEventListener('click', function () {
+            count_down = 5;
+            btn[0].disabled = false;
+            bar.innerHTML = '';
+            clearInterval(jump_count);
+        })
+    </script>
+</body>
+
+</html>

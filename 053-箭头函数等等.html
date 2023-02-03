@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>箭头函数</title>
+    <script>
+        // 用=>来表示函数
+        let a = (a, b) => {
+            console.log(a + b);
+        }
+        let b = (a, b) => {
+            return a + b;
+        }
+
+        a(1, 2);
+        console.log(b(1, 2));
+        // 1.this是静态的，this始终指向函数声明时所在作用域的this值
+        //   不能通过bind() call()等方法改变
+        // e.g.
+        window.addEventListener('load', function () {
+            var tag = document.getElementById('suibian');
+            // tag.addEventListener("click", function () {
+            //     setTimeout(function () {
+            //         this.style.color = 'pink';
+            //     },200)
+            // })
+            // 上述代码会报错，因为setTimeout指向Window，需要单独保存指向tag的this指针
+            // 可以通过简单的修改为箭头函数完成
+            tag.addEventListener("click", function () {
+                setTimeout(() => {
+                    this.style.color = 'pink';
+                }, 200)
+                // 箭头函数的this是静态的，其所在作用域为addEventListener，this指向tag
+            })
+        })
+
+        // 2.不能作为构造函数来实例化对象
+        // 3.不能使用arguments变量
+
+        // 4.简写情况
+        // 4.1 省略小括号
+        //     当形参有且仅有一个的时候
+        let c = n => {
+            console.log(n);
+        }
+        c(999);
+        // 4.2 省略花括号
+        //     代码体只有一个语句 且return必须省略，函数结果即为函数的返回值
+        let d = n => n * n;
+        console.log(d(10));
+        // 箭头函数适合与this无关回调，例如定时器、数组..
+        // 不适合与this有关的回调，例如事件回调、对象方法
+
+        // 形参赋初始值
+        // 据有初始值的变量一般放在后头 
+        function add(a, b, c = 10) {
+            return a + b + c;
+        }
+        let result = add(1, 2, 3);
+        // 可以与解构赋值相结合
+
+        // Es6引入rest参数，用于部分代替Es5的arguments
+        // 使用有条件
+        var new_f = function (...args) {
+            console.log(args);
+        }
+        new_f('zxl', 'gzd', 'xsb');
+        // rest是一个数组，可以使用对应的API
+        // 同时该参数要放在所有参数的最后面
+        // e.g. function(a,b,...args)
+
+        // 扩展运算符
+        // ... 将数组转化为','分割的参数序列
+        // 对于引用数据类型还是浅拷贝
+    </script>
+</head>
+
+<body>
+    <div style="width:200px;height:200px" id="suibian"></div>
+</body>
+
+</html>

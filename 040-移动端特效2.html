@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移动端特效2</title>
+    <script>
+        // 获取手指移动的距离
+        // 运用targetTouches[0]里面的pageX和pageY获取
+        // 盒子坐标为 原坐标加手指一动距离
+        // 三部曲：
+        //       1.touchstart 获取落点坐标，同时获取盒子初始位置
+        //       2.touchmove 获取手指移动距离 同时移动盒子
+        //       3.touchend 
+        //       由于手指移动本身会移动页面，这里要阻止滚动 e.preventDefault();
+
+        // 移动端适配性比较好
+        // 不用考虑兼容性问题
+        // 因此JS可以结合CSS3的动画效果实现
+
+        // 移动端相比于PC端比较严重的问题是 click事件有300ms延迟
+        // 原因是移动端屏幕双击会缩放页面
+        // click延迟解决方案 
+        // 1.禁止缩放功能
+        // <meta name="viewport" content="user-scalable=no">
+        // 2.利用touch事件封装函数
+        // 3.使用插件：fastclick插件
+    </script>
+    <style>
+        * {
+            margin:0px;
+            padding:0px;
+        }
+
+        .move-box {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            position:absolute;
+            top:0px;
+            left:0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="move-box"></div>
+    
+    <script>
+        var box = document.querySelector('.move-box');
+        var startX = 0;
+        var startY = 0;
+        var x = 0;
+        var y = 0;
+        box.addEventListener('touchstart',function(e){
+            // 获取手指初始坐标
+            startX = e.targetTouches[0].pageX;
+            startY = e.targetTouches[0].pageY;
+            x = this.offsetLeft;
+            y = this.offsetTop;
+            // console.log(startX+','+startY);
+            // console.log(x+','+y);
+        })
+        box.addEventListener('touchmove',function(e){
+            // 获取移动距离
+            var moveX = e.targetTouches[0].pageX - startX;
+            var moveY = e.targetTouches[0].pageY - startY;
+            // console.log(moveX);
+            // console.log(moveY);
+
+            // 我是傻逼：style.left/top 在元素具有定位时才能使用
+            this.style.left = x + moveX + 'px';
+            this.style.top = y + moveY + 'px';
+            e.preventDefault();
+        })
+
+        box.addEventListener('touchend',function(){
+            // 这个事件在此没有什么实际应用，摸了摸了~
+        })
+    </script>
+</body>
+</html>

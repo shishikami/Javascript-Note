@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网页特效实践</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .bg_img {
+            width: 800px;
+            height: 480px;
+            /* overflow: hidden; */
+            background: url('imgsource/bg2.jpg') no-repeat scroll;
+            background-size: 800px 480px;
+            margin: 40px 0px 0px 40px;
+        }
+
+        .display_bar {
+            overflow: hidden;
+            width: 850px;
+            height: 850px;
+            position: absolute;
+            left: 970px;
+            top: 40px;
+            background: url('imgsource/bg2.jpg') no-repeat scroll;
+            background-size: 1920px 1080px;
+            z-index: 10;
+            visibility: hidden;
+        }
+
+        .cover {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            border: 1px solid #ccc;
+            background-color: rgba(187, 200, 42, 0.5);
+            cursor: move;
+            visibility: hidden;
+        }
+
+        .show_bar {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="show_bar">
+        <div class="bg_img">
+            <div class="cover"></div>
+        </div>
+    </div>
+    <div class="display_bar"></div>
+
+    <script>
+        window.addEventListener('load', function () {
+            var pre_len = window.innerWidth;
+            var show_area = document.getElementsByClassName('display_bar')[0];
+            var pic_area = document.getElementsByClassName('bg_img')[0];
+            var mask = document.getElementsByClassName('cover')[0];
+            show_area.style.left = (pre_len - pic_area.offsetWidth - 40 - show_area.offsetWidth) / 2 + pic_area.offsetWidth + 40 + 'px';
+
+            pic_area.addEventListener('mouseover', function () {
+                mask.style.visibility = 'visible';
+                show_area.style.visibility = 'visible';
+            })
+
+            pic_area.addEventListener('mousemove', function (e) {
+                var posX = e.pageX - this.offsetLeft;
+                var posY = e.pageY - this.offsetTop;
+                var x = posX - mask.offsetWidth / 2;
+                var y = posY - mask.offsetHeight / 2;
+                if (x < 0) {
+                    x = 0;
+                }
+                else if (x > 550) {
+                    x = 550;
+                }
+                if (y < 0) {
+                    y = 0;
+                }
+                else if (y > 230) {
+                    y = 230;
+                }
+                x += 'px';
+                y += 'px';
+                // console.log(x + ',' + y);
+                mask.style.left = x;
+                mask.style.top = y;
+                show_area.style.backgroundPosition = (-1.945 * parseInt(x)) + 'px ' + (-0.4181 * parseInt(y)) + 'px';
+            })
+
+            pic_area.addEventListener('mouseout', function () {
+                mask.style.visibility = 'hidden';
+                show_area.style.visibility = 'hidden';
+            })
+        })
+    </script>
+</body>
+
+</html>

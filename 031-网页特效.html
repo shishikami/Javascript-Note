@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网页特效</title>
+    <script>
+        // 立即执行函数
+        // 不需要调用，自己立马执行的函数
+        // (function[ func-name](){})(); 或者
+        // (function[ func-name](){}());
+        // 后面的括号类似于调用时的参数，(function(arg1,arg...){})(a,b....);
+        // 最大的作用：创建一个独立的作用域，内部变量在执行后销毁
+
+        // offset
+        // 相关属性可以动态得到元素的位置（偏移）、大小等等
+        // 获得元素距离带有定位的父元素的位置
+        // 获得元素自身的大小（宽度高度）
+        // 返回的数值不带单位
+        // 系列属性：
+        // ele.offsetParent 返回该元素带有定位的父级元素 没有则返回body
+        // ele.offsetTop 带有定位的父元素的上方偏移
+        // ele.offsetLeft 带有定位的父元素的左边框偏移
+        // ele.offsetWidth 返回自身包括padding、边框、内容区的宽度，不含单位
+        // ele.offsetHeight
+
+        // client
+        // 可以动态的得到元素大小 边框大小
+        // ele.clientTop 返回上边框大小
+        // ele.clientLeft 左边框大小
+        // ele.clientWidth 返回padding+内容区宽度，不加边框，返回值无单位
+        // ele.clientHeight
+
+        // scroll
+        // 得到元素的大小、滚动距离 数值不带单位
+        // element.scrollTop 被卷去的上侧距离
+        // element.scrollLeft 被卷去的左侧距离
+        // element.scrollWidth 自身实际的宽度，可能超出父级元素宽度，不含边框，含有padding
+        // element.scrollHeight
+        // 滚动条滚动时触发onscroll事件
+
+        // 科普类：
+        // dpr 物理像素比
+
+        // pageshow事件 页面重新加载时触发
+        // 与load相比较，load在点击超链接、强制刷新或点击前进后退按钮时触发 在火狐浏览器中存在往返缓存，后退不能触发load
+        // 此时可以使用pageshow，该事件添加给window
+
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .father {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            padding: 20px;
+            border: 5px solid black;
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="father">123</div>
+
+    <script>
+        var bar1 = document.querySelectorAll('div');
+        console.log(bar1[0].offsetTop);
+        console.log(bar1[0].offsetLeft);
+        console.log(bar1[0].offsetWidth);
+        console.log(bar1[0].offsetHeight);
+        console.log(bar1[0].offsetParent);
+        // parentNode 和 offsetParent区别，前者返回第一个父级元素，后者寻找第一个带定位的父级
+    </script>
+
+    <script>
+        (function () {
+            console.log(5201314);
+        })()
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节点操作</title>
+    <script>
+        // 获取元素的两种方法
+        // 一、DOM提供的方法 e.g. getElementsByTagName()
+        //     逻辑性不强，繁琐
+        // 二、节点层级关系获取元素
+        //     父子兄弟节点间
+        // 网页中所有内容都是节点（标签、属性、文本、注释 etc.）
+        // 一般情况节点拥有至少三个属性 nodeType节点类型 nodeName节点名称 nodeValue节点属性
+        // 其中：nodeType中 元素节点值为1
+        //                  属性节点值为2
+        //                  文本节点值为3 （文字 空格 换行也算作文本节点）
+        // 实际开发中 主要操作元素节点
+
+        // 节点层级
+        // 父节点 node.parentNode 得到最近的父节点 找不到父节点会返回null
+
+        // 子节点
+        // parentNode.childNodes 获取子节点的集合，该集合实时更新 包含所有节点（文字节点）处理不太方便 少使用
+        // parentNode.children (非标准) 返回 子元素 节点
+        // parentNode.firstChild 返回第一个子节点
+        // parentNode.lastChild 返回最后一个子节点
+        // parentNode.firstElementChild 返回第一个子元素节点 兼容性问题IE9+
+        // parentNode.lastElementChild 返回最后一个子元素节点
+
+        // 兄弟关系
+        // node.nextSibling 下一个兄弟节点，包含所有节点类型，找不到则返回null
+        // node.previousSibling
+        // node.nextElementSibling 下一个兄弟元素节点 兼容性问题 IE9+
+        // node.previousElementSibling
+
+        // 创建节点
+        // document.createElement('tagName'); 动态创建元素节点
+        // e.g. var li =document.createElement('li');
+
+        // 其他方法
+        // document.write
+        // e.g. document.write('<div>123</div>')
+        // 直接将内容写入文档内容流 文档流执行完毕后会导致文档内容全部重绘
+        // innerHTML方法
+        // 在大量创建时，createElement效率更高（存在拼接字符串的问题）
+        // 当innerHTML采用数组形式操作时，效率高于createElement方法
+
+        // 添加节点
+        // node.appendChild(child) 添加到指定父节点子节点列表的末尾 类似于after伪元素 node父节点 child要添加的子节点
+        // node.insertBefore(child,指定元素) 添加到指定父节点指定子节点的前面
+
+        // 删除节点
+        // node.removeChild(child) 从DOM中删除一个子节点，返回删除的节点
+
+        // 复制节点
+        // node.cloneNode() 返回调用节点的一个复制
+        // ()内为空或false为浅拷贝，仅拷贝标签
+        // ()为true则为深拷贝,复制标签内容
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .bar_1 {
+            margin-top: 50px;
+            width: 480px;
+            height: 160px;
+            font-size: 0px;
+        }
+
+        .nav>li>a,
+        .nav>li>ul>li {
+
+            font-size: 18px;
+            height: 40px;
+            line-height: 40px;
+            text-indent: 10px;
+        }
+
+        .nav>li {
+            width: 120px;
+            display: inline-block;
+            position: relative;
+            background-color: #999;
+        }
+
+        .nav>li>a {
+            width: 120px;
+            display: block;
+            position: relative;
+        }
+
+        .nav>li>a>img {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+        }
+
+        .nav>li>ul {
+            position: absolute;
+            top: 40px;
+        }
+
+        .nav>li>ul>li {
+            width: 120px;
+            display: none;
+            background-color: #ccc;
+            color: black;
+        }
+
+        .nav>li:hover {
+            color: white;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        郭政都傻逼
+        <span id="s_bar1"></span>
+    </div>
+
+    <script>
+        var bar_1 = document.getElementById('s_bar1');
+        var s_bar_1 = bar_1.parentNode;
+        console.log(s_bar_1);
+    </script>
+
+    <ul id="ul_1">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+
+    <script>
+        var ul_1 = document.getElementById('ul_1');
+        console.log(ul_1.childNodes); //NodeList(9) [text, li, text, li, text, li, text, li, text]
+        console.log(ul_1.children);
+    </script>
+
+    <div class="bar_1">
+        <ul class="nav">
+            <li>
+                <a href="#">
+                    <p>gzdsb</p>
+                    <img src="imgsource/arr_right.png">
+                </a>
+                <ul>
+                    <li>sbgzd</li>
+                    <li>gzd大sb</li>
+                    <li>gzd臭傻逼</li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <p>gzdsb</p>
+                    <img src="imgsource/arr_right.png">
+                </a>
+                <ul>
+                    <li>sbgzd</li>
+                    <li>gzd大sb</li>
+                    <li>gzd臭傻逼</li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <p>gzdsb</p>
+                    <img src="imgsource/arr_right.png">
+                </a>
+                <ul>
+                    <li>sbgzd</li>
+                    <li>gzd大sb</li>
+                    <li>gzd臭傻逼</li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <p>gzdsb</p>
+                    <img src="imgsource/arr_right.png">
+                </a>
+                <ul>
+                    <li>sbgzd</li>
+                    <li>gzd大sb</li>
+                    <li>gzd臭傻逼</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        var li_list = document.querySelector('.nav').children;
+        // console.log(li_list)
+        for (var i = 0; i < li_list.length; ++i) {
+            li_list[i].setAttribute('data-index', i);
+        }
+
+        for (var i = 0; i < li_list.length; ++i) {
+            li_list[i].firstElementChild.onmouseover = function () {
+                // console.log(this.parentNode.children[1]);
+                var node_c = this.parentNode.children[1].children;
+                for (var j = 0; j < node_c.length; ++j) {
+                    node_c[j].style.display = 'block';
+                }
+                var last_ele = this.lastElementChild;
+                last_ele.src = 'imgsource/arr_down.png';
+            }
+
+            li_list[i].firstElementChild.onmouseout = function () {
+                // console.log(this.parentNode.children[1]);
+                var node_c = this.parentNode.children[1].children;
+                for (var j = 0; j < node_c.length; ++j) {
+                    node_c[j].style.display = 'none';
+                }
+                var last_ele = this.lastElementChild;
+                last_ele.src = 'imgsource/arr_right.png';
+            }
+        }
+    </script>
+</body>
+
+</html>

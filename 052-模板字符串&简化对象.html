@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板字符串</title>
+    <script>
+        // Es6 新的字符串声明 ``
+        let new_str = `我是字符串`;
+        console.log(new_str + typeof new_str);
+        // ``中可以直接出现换行符
+        // 可直接进行变量的拼接
+        let people = `gzd`;
+        let msg = `${people}是全世界最蠢的人`;
+        console.log(msg);
+
+        let name = 'gzd';
+        let call = function () {
+            console.log("我是傻逼");
+        }
+        let student = {
+            name,
+            call,
+            improve() {
+                console.log(name + "我是傻逼");
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

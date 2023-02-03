@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width='device-width', initial-scale=1.0">
+    <title>JsEs6新语法</title>
+    <script>
+        // 面对象对象编程 Object oriented programming
+        // 封装继承多态
+
+        // 类与对象
+        // Js中对象是无序的相关属性和方法的集合，所有事物都是对象； 对象由属性和方法组成
+
+        // Es6新增了类的概念 由class关键词定义
+        // 创建类：
+        // class name{
+        //     class body
+        // }
+        // 创建实例：类对象必须使用new关键词
+        // var xxx = new name();
+
+        // 类constructor构造函数
+        // 类的构造函数（默认方法） 用于传递参数，返回实例对象
+        // 通过new创建对象时自动调用该方法 没有定义constructor使类内部自动创建一个
+        // 类名首字母一般大写，类名后面不加（）
+        // constructor不写function 实例化时类名后面加（）
+
+        // 类中的方法不用加function关键字
+        // 类中多个方法之间不需要添加逗号分隔
+
+        // 类的继承
+        // extends关键字用于继承父类
+        // super关键字 super()可以用来调用父类构造函数,super()必须在子类this之前
+        // super关键字还可以调用普通函数 super.function()
+        // 就近原则：子类有的方法用子类，没有再去父类找
+
+        // 注意点：
+        // 类没有变量提升，必须先定义再调用
+        // 类里面共有的属性和方法要加this使用
+        // constructor里的this指向创建的实例
+        // 方法里的this指向方法的调用者
+
+        // Es5部分
+        // Es6 ECMAScript6.0 大多数高版本浏览器支持
+        // 在Es6之前 js没有类的概念
+        // 对象不是基于类创建的，而是通过构造函数来定义对象和其特征
+
+        // 静态成员 实例成员
+        // 实例成员 构造函数内部通过this添加的对象
+        // e.g. class Star {
+        //     constructor(){
+        //         this.name = '...'
+        //         this.age = ..
+        //     }
+        // }
+        // 其中name,age为实例成员
+        // 实例成员只能通过实例化的对象访问
+        // 实例成员
+        // 在构造函数上直接添加的成员
+        // e.g. Star.sex = '男'
+        // 只能通过构造函数访问(Star.sex)，不能通过类对象访问
+
+        // 构造函数 存在浪费内存的问题
+        // 希望对象使用同一个函数
+        // prototype 通过原型分配的函数所有对象共享
+        // 每一个构造函数都有prototype属性，指向另一个对象
+        // 其所有属性和方法会被构造函数所拥有
+        // 将共享的方法直接放在prototype中
+        // e.g. Star.prototype.sing = function(){...}
+        // 或者
+        // Star.prototype = {
+        //     sing:function(){...}
+        // }
+        // 上述方法会覆盖prototype属性，导致内部的constructor消失，需要手动添加constructor
+        // 改为
+        // Star.prototype = {
+        //     sing:function(){...},
+        //     constructor:Star
+        // }
+
+        // 对象原型__proto__(两个下划线)
+        // 指向构造函数的prototype原型对象
+        // 对象身上自动添加__proto__
+        // 对象原型__proto__和原型对象prototype是等价的
+        // 方法查找规则：先从对象身上找，再去prototype上去找
+        // *原型链
+
+        // constructor
+        // 对象原型和原型对象均具有constructor属性，指向构造函数本身
+        // 记录该对象使用的构造函数
+
+        // 访问对象属性或者方法时，首先查找对象自身是否具有该属性或方法
+        // 没有的话会查找其原型（__proto__指向的prototype原型对象
+        // 一直重复此操作，直到查找到Object的__proto__指向的prototype原型为null
+
+        // 原型对象的this指向
+        // 构造函数中this指向对象实例
+        // 原型对象（prototype）this指向实例对象
+
+        // 原型对象应用
+    </script>
+</head>
+
+<body>
+    <button>点击</button>
+
+    <script>
+        class Star {
+            constructor(s_name, age) {
+                this.s_name = s_name;
+                this.age = age;
+            }
+            sing() {
+                console.log("啦啦啦啦啦啦我是一个小煞笔");
+            }
+        }
+        var m_star = new Star("薛书博", 19);
+        // console.log(m_star);
+        // m_star.sing();
+
+        class E_star extends Star {
+            constructor(name, age) {
+                super(name, age);
+                console.log("E_star");
+            }
+        }
+        var E_m_star = new E_star("薛书博", 19);
+        console.log(E_m_star);
+
+        class Btn {
+            constructor() {
+                this.btn = document.querySelector('button');
+                // sing加()会立即执行
+                this.btn.onclick = this.sing;
+            }
+            sing() {
+                console.log("薛书博傻逼");
+            }
+        }
+        var btn = new Btn();
+    </script>
+</body>
+
+</html>

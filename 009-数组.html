@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组</title>
+    <script>
+        //创建数组
+        //方法一 new
+        var arr1 = new Array();
+
+        //方法二 利用数组字面量[]
+        //无初始值
+        var arr2 = [];
+        //有初始值
+        var arr3 = [123, "这是个字符串", false, 998.2];
+
+        console.log(arr3);
+
+        //访问获取数组元素 arr[i]
+        console.log(arr3[1]);
+
+        //循环遍历数组
+        for (var index = 0; index < arr3.length; index++) {
+            const element = arr3[index];
+            console.log(element);
+        }
+
+        //修改数组长度
+        //直接修改length
+        var arr4 = [1, 2, 3, 4];
+        console.log(arr4.length);
+        arr4.length = 6;
+        console.log(arr4);
+        //追加数组元素
+        var arr5 = [1, 2, 3, 4];
+        arr5[4] = 6;
+        console.log(arr5);
+
+        // arr5[100] = 100;
+        // console.log(arr5);
+
+        console.log('---------------------');
+        var arr6 = [];
+        arr6.push(1);
+        arr6.push("我是傻逼");
+        arr6.push(2);
+        console.log(arr6);
+        arr6.pop();
+        console.log(arr6);
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

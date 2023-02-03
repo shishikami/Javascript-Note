@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>变量</title>
+    <script>
+        /* 命名规范
+           范围：字母 数字 _ $
+           区分大小写；
+           不以数字开头；
+           不能使用保留字、关键字
+           驼峰命名：首字母小写，后面单词首字母大写 尽量不要使用name作为对象名
+        */
+
+        //变量是存放数据的容器
+        //在内存中申请一块空间用以存放数据
+        //分两步1.声明 计算机自动分配内存空间
+        //      2.赋值 
+        var int = 10;
+        int = 20;
+
+        //会被更新覆盖
+        console.log(int);
+
+
+        //声明多变量,用逗号隔开
+        var name = "Sb",
+            address = "不知道",
+            salary = 1000;
+
+        //输出
+        var string;
+        string = prompt("请输入内容");
+        console.log(string);
+
+        //声明不赋值为undefined
+        //不声明不赋值的变量会报错
+        //不声明但赋值也能输出（不要用这个）
+        var num;
+        console.log(num);//undefined
+
+        char = 'a';
+        console.log(char)
+
+        // 变量一般用名词 函数用动词 
+        // 操作符左右要空一格
+        // 注释开头空一格
+
+        // 注意：
+        var a = b = c = 9;
+        // 相当于 var a = 9;b = 9; c = 9;
+
+        // 数据类型 Js本身不具有堆栈的结构 方便理解
+        // 简单数据类型（值类型）   存储在栈   Number Boolean String Undefined Null
+        // null返回类型为空对象Object，若变量将来要存储对象，可以声明为null
+
+        // 复杂数据类型（引用类型） 存储在堆   Object Array Date
+        // 首先在栈里由十六进制数据存放地址，地址指向堆里的数据
+
+        // 简单类型传参
+        // 值类型变量传递给形参仅仅是复制了值类型变量的值，形参的改变不影响变量
+
+        // 引用类型传递地址，形参将操作同一对象
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

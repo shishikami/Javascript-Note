@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebAPI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    </style>
+    <script>
+        // WebAPI 浏览器提供的操作浏览器功能和元素的API BOM和DOM
+        // https://developer.mozilla.org/en-US/docs/Web/API
+
+        // DOM Document object model
+
+        // DOM树 DOM把以下内容都看作对象
+        // 文档：一个页面就是一个文档                            （DOM:document）
+        // 元素：页面中的所有标签都是元素                        （DOM:element）
+        // 节点：网页中所有内容都是节点 标签、属性、文本、注释    （DOM:node）
+
+        // DOM对象 浏览器根据html标签生成的js对象
+        // DOM核心思想把网页内容当作对象来处理
+
+        // document对象：DOM提供的对象
+        // 其方法用来访问、操作网页内容 e.g. document.write()
+        // 网页所有内容都在document里
+
+        // 获取页面元素：
+        // 1.根据ID获取 getElementById()返回一个匹配特定 ID的元素。
+        // getElementById(id) id是大小写敏感的字符串，代表了所要查找的元素的唯一ID
+        //
+
+        // 2.根据标签名获取
+        // Element.getElementsByTagName() 方法返回一个动态的包含所有指定标签名的元素的 HTML 集合
+        // 以伪数组的方式存储，即使只有一个元素，也会返回数组；当没有元素时返回空的伪数组
+        // 可以获取某个父元素内部的子元素（不包括父元素
+
+        // 3.H5新增方法 i9以上才支持
+        // 获取类名 
+        
+        // (1)
+        // Document.getElementsByClassName()
+        // 返回一个包含了所有指定类名的子元素的类数组对象。
+        // 可以在任意元素上调用getElementsByClassName() 方法，它将返回的是以当前元素为根节点，所有指定类名的子元素。
+
+        // (2)
+        // document.querySelector()
+        // 返回文档中与指定选择器或选择器组匹配的第一个 Element对象
+        // 如果找不到匹配项，则返回null。
+
+        // (3)
+        // Document.querySelectorAll()
+        // 返回与指定的选择器组匹配的文档中的元素列表 (使用深度优先的先序遍历文档的节点)。
+        // 返回的对象是 NodeList 。
+
+        // 4.特殊元素获取
+        // 获取body html
+    </script>
+</head>
+
+<body>
+    <div id="time-bar">
+        <p>2022-8-9</p>
+    </div>
+    <script>
+        // 文档由上向下生成，得先有标签
+        var element1 = document.getElementById('time-bar');
+        console.log(element1);
+        console.log(typeof element1);
+        // console.dir 更好的查看对象的属性和方法
+        console.dir(element1);
+
+        console.log('---------------------------------');
+    </script>
+    <ul>
+        <li>郭政都傻逼</li>
+        <li>gzdsb</li>
+        <li>郭政都大傻逼</li>
+        <li>gzd大sb</li>
+    </ul>
+    <ul id="gzdsb">
+        <li>郭政都不是傻逼</li>
+        <li>gzd is not a sb</li>
+        <li>郭政都不是大傻逼</li>
+        <li>gzd不是大sb</li>
+    </ul>
+    <ul class="gzd笨比">
+        <li>郭政都不是傻逼</li>
+        <li>gzd is not a sb</li>
+        <li>郭政都不是大傻逼</li>
+        <li>gzd不是大sb</li>
+    </ul>
+    <ul class="gzd笨比">
+        <li>郭政都不是傻逼</li>
+        <li>gzd is not a sb</li>
+        <li>郭政都不是大傻逼</li>
+        <li>gzd不是大sb</li>
+    </ul>
+    <script>
+        var elements1 = document.getElementsByTagName('li');
+        console.log(elements1);
+        //console.log(elements1[0]);
+
+        // 利用循环输出数组
+        // for (var i = 0; i < elements1.length; ++i) {
+        //     console.log(elements1[i]);
+        // }
+
+        var elements2 = document.getElementsByTagName('h');
+        console.log(elements2);
+
+        var elements2 = document.getElementsByTagName('ul');
+        console.log(elements2);
+        console.log(elements2[1].getElementsByTagName('li'));
+
+        var elements3 = document.getElementsByClassName('gzd笨比');
+        console.log(elements3);
+
+        // .类名  #id名 标签名
+        var firstele = document.querySelector('.gzd笨比');
+        console.log(firstele);
+        var allele = document.querySelectorAll('ul');
+        console.log(allele);
+
+        console.log('---------------------------------');
+
+        // 获取body
+        var docBody = document.body;
+        console.log(docBody);
+        //console.dir(docBody);
+
+        // 获取html
+        var docHtml = document.documentElement;
+        console.log(docHtml);
+    </script>
+</body>
+
+</html>

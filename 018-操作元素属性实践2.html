@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>操作元素属性</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 0px;
+        }
+
+        body {
+            background: url(imgsource/bg1.jpg) no-repeat center top;
+            background-size: 100% 100%;
+        }
+
+        .pic_bar {
+            width: 825px;
+            height: 120px;
+            margin: 100px auto;
+            background-color: #ccc;
+        }
+
+        .pic_1 {
+            /* border-color: #ccc; */
+            background-color: #ccc;
+            box-sizing: border-box;
+            width: 205px;
+            padding-left: 5px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            height: 120px;
+        }
+
+        #bar_ctl {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            width: 80px;
+            height: 60px;
+        }
+
+        #bar_ctl_c {
+            position: absolute;
+            bottom: 33px;
+            right: 30px;
+            width: 80px;
+            height: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pic_bar">
+        <img class="pic_1" src="imgsource/bg1.jpg">
+        <img class="pic_1" src="imgsource/bg2.jpg">
+        <img class="pic_1" src="imgsource/bg3.jpg">
+        <img class="pic_1" src="imgsource/bg4.jpg">
+    </div>
+    <div class="pic_bar">
+        <img class="pic_1" src="imgsource/bg5.jpg">
+        <img class="pic_1" src="imgsource/bg6.jpg">
+        <img class="pic_1" src="imgsource/bg7.jpg">
+        <img class="pic_1" src="imgsource/bg8.jpg">
+    </div>
+    <div class="pic_bar">
+        <img class="pic_1" src="imgsource/bg9.jpg">
+        <img class="pic_1" src="imgsource/bg10.jpg">
+        <img class="pic_1" src="imgsource/bg11.jpg">
+        <img class="pic_1" src="imgsource/bg12.jpg">
+    </div>
+    <div class="pic_bar">
+        <img class="pic_1" src="imgsource/bg13.gif">
+        <img class="pic_1" src="imgsource/bg14.gif">
+        <img class="pic_1" src="imgsource/bg15.gif">
+        <img class="pic_1" src="imgsource/bg16.gif">
+    </div>
+    <img id="bar_ctl" src="imgsource/eye-open.png">
+
+    <script>
+        var eye_flag = true;
+        var eye = document.getElementById('bar_ctl');
+        var pics = document.getElementsByTagName('img');
+        var pics_bar = document.getElementsByClassName('pic_bar');
+
+        for (var i = 0; i < pics.length; ++i) {
+            // console.log(pics);
+            pics[i].onclick = function () {
+                document.body.style.backgroundImage = 'url(' + this.src + ')';
+            }
+        }
+
+        eye.onclick = function () {
+            if (eye_flag) {
+                this.src = 'imgsource/eye-close.png';
+                this.id = 'bar_ctl_c';
+                for (var i = 0; i < pics_bar.length; ++i) {
+                    pics_bar[i].style.visibility = 'hidden';
+                }
+                eye_flag = false;
+            }
+            else {
+                this.src = 'imgsource/eye-open.png';
+                this.id = 'bar_ctl';
+                for (var i = 0; i < pics_bar.length; ++i) {
+                    pics_bar[i].style.visibility = 'visible';
+                }
+                eye_flag = true;
+            }
+        }
+    </script>
+</body>
+
+</html>

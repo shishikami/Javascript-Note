@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动画实践</title>
+    <script>
+        // 滚动窗口至文档特定位置
+        // window.scroll(x,y);
+    </script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .w {
+            width: 1200px;
+            margin: 0px auto 10px auto;
+        }
+
+        .header {
+            height: 600px;
+            background-color: #ebebeb;
+        }
+
+        .main {
+            height: 1200px;
+            background-color: #ccc;
+        }
+
+        .footer {
+            height: 600px;
+            background-color: #999;
+        }
+
+        .side-bar {
+            position: absolute;
+            width: 40px;
+            height: 80px;
+            right: 20px;
+            top: 600px;
+        }
+
+        .go-back {
+            background-color: pink;
+            display: block;
+            width: 40px;
+            height: 60px;
+            line-height: 30px;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="side-bar">
+        <span class="go-back">返回顶部</span>
+    </div>
+    <div class="header w"></div>
+    <div class="main w"></div>
+    <div class="footer w"></div>
+
+    <script>
+        var banner = document.querySelector('.main');
+        var sidebar = document.querySelector('.side-bar');
+        var banner_h = banner.offsetTop;
+        var ori_h = sidebar.offsetTop - banner.offsetTop;
+        var back_btn = document.querySelector('.go-back');
+        
+        document.addEventListener('scroll',function(){
+            if(pageYOffset>=300){
+                sidebar.style.position = 'fixed';
+                sidebar.style.top = 300 + 'px';
+            }
+            else {
+                sidebar.style.position = 'absolute';
+                sidebar.style.top = '600px';
+            }
+        })
+
+        // 更换为动画效果
+        function animate_plus(obj,target,speed,timespan,callback){
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function(){
+                // 由于小数精度问题，步长大概可能需要一些约束条件？
+                // var step = ((target - obj.offsetLeft)/20)>0.5?((target - obj.offsetLeft)/20):0.5;
+                var step = (target - pageYOffset)/speed;
+                step = step>0?Math.ceil(step):Math.floor(step);
+                obj.scroll(0,obj.pageYOffset + step);
+                if(obj.pageYOffset==target){
+                    clearInterval(obj.timer);
+                    console.log('Disarmed');
+                    callback && callback();
+                }
+            },timespan);
+        };
+
+        back_btn.addEventListener('click',function(){
+            animate_plus(window,0,20,15);
+        })
+    </script>
+</body>
+</html>

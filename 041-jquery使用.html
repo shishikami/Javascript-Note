@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery使用</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .btn {
+            position: absolute;
+            top:0px;
+            left:0px;
+            width: 40px;
+            height: 30px;
+        }
+
+        .box {
+            position: absolute;
+            top:40px;
+            left:0px;
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+    </style>
+    <script src="jssource/jquery.js"></script>
+    <script>
+        // jquery:
+        // $为jQuery的别称，代码中可以用jQuery代替$,但明显后者更方便
+        // $为jQuery的顶级对象，相当于原生对象window，把元素用$包裹封装为jQuery对象，即可调用jQuery方法
+
+        // DOM对象和jQuery对象
+        // 用原生js获取的对象为DOM对象
+        // 用jQuery方法获取的为jQuery对象，两者不一样，其本质为$包装后生成的对象，以伪数组形式存储
+        // DOM对象只能调用原生js方法，jQuery只能使用jQuery的方法
+
+        // DOM对象和jQuery对象转换
+        // jQuery仅封装了一些常用方法，针对没有封装的方法，要采用原生js方法
+        // (1) DOM -> jQuery
+        // $('div') $(myDom)
+        // (2) jQuery -> DOM
+        // $(jQ对象)[index]
+        // $(jQ对象).get(index)
+
+        // 常用API
+        // (1) jQuery选择器
+        // $('#id') $('.class') $('*') $('tag') $('tag1,tag2,...') $('attribute1attribute2')
+        // $('father son') $('father>son')
+
+        // 修改css样式 存在隐式迭代，会进行遍历操作
+        // $("class").css("key","value")
+
+        // 筛选选择器
+        // :first 获取第一个元素
+        // :last 获取最后一个元素
+        // :eq(index) 获取index位置处的元素，index从零开始
+        // :odd 获取奇数元素
+        // :even 获取偶数元素
+        // :checked 获取被选择的表单元素
+
+        // jQuery筛选方法
+        // 方法要加（）          example                    explain
+        // parent()              $('li').parent()           查找父级，最近一级
+        // parents()                                        所有父级
+        // children(selector)    $('ul').children('li')     $('ul>li')
+        // find(selector)        $('ul').find('li')         $('ul li')后代选择器
+        // siblings(selector)    $('.first').siblings('li') 查找兄弟节点，不包括自己
+        // nextAll([expr])       $('.first').nextAll()      查找当前元素之后的同辈元素
+        // prevAll([expr])       $('.first').prevAll()      查找当前元素之前的同辈元素
+        // hasClass(class)       $('div').hasClass('protected') 检查当前类有没有特定的元素，如果有返回true
+        // eq(index)             $('li').eq(2)              $('li:eq(2)')index从0开始
+
+        // 排他思想 利用隐式迭代
+        // $(this).css('backgroud',...)
+        // $(this).siblings.css(...)
+        // 利用$(this).index() 简化
+
+        // 链式编程
+
+        // jQ css样式修改
+        // 1. 如果只写属性名，则返回属性值
+        //    e.g. $('div').css('color');
+        // 2. 如果是  属性名,属性值  的形式,则修改样式,属性必须加'',值如果是数字不用跟单位和''
+        //    e.g. $('div').css('color','red');
+        // 3. 如果是  对象{'a':'b','c':'d',....} 方便设置多组样式，由冒号隔开。
+        //    属性名可以不用加'',属性值如果是数字可以不用加引号 符合属性用驼峰命名法
+        //    e.g. $('div').css('color','red');
+
+        // 设置类样式方法
+        // 1.添加删除
+        // .addClass('className');
+        // .removeClass('className');
+        // 2.切换类
+        // .toggle('className');
+
+        // jQuery与className的区别，className会覆盖原先的类名，而jQ不会，仅针对选择的类名
+
+        // jQ效果
+        // **动画队列、效果队列
+        // .stop()
+        // 可以让动画停止排队，停止之前的动画，只执行当此的动画,要写在动画的前面，可以避免动画的排队
+        
+        // 一.显示与隐藏 show() hide() toggle()
+        // 1. show([speed[,easing][,fn]])
+        // 参数均可省略 speed：slow、normal、fast预定字符串或者时间毫秒值
+        // easing:指定切换效果，默认swing 可用liner
+        // fn：回调函数，动画完成时的执行函数，每个元素执行一次
+        // 2. hide([speed[,easing][,fn]])
+        // 3. toggle([speed[,easing][,fn]])
+        // 一般情况不加参数，动画太丑了
+
+        // 二、滑动 slideDown() slideUp() slideToggle()
+        // 1.slideDown([speed[,easing][,fn]])
+        // 2.slideUp([speed[,easing][,fn]])
+        // 3.slideToggle([speed[,easing][,fn]])
+
+        // 事件切换
+        // hover([over,]out) 如果只写一个函数，离开和经过时都会触发该函数
+        // 其中over相当于mouseenter，out相当于mouseleave
+
+        // 三、淡入淡出效果 fadeIn() fadeOut() fadeToggle() fadeTo()
+        // 前三个参数均同上
+        // fadeTo([[speed,] opacity [,easing][,fn]]) opacity透明度必须写
+
+        // 四、自定义动画 animate(params,[speed,][easing,][fn])
+        // params为想要更改的样式属性，以对象形式传递，必须写，属性名可以不带引号
+        // 只能针对元素，不能是document
+
+        // 属性操作
+        // 1.获取修改固有属性：
+        // prop("属性") prop("属性","属性值")
+        // 2.自定义属性 可以获取H5新增自定义属性
+        // attr("属性") attr("属性","属性值")
+        // 3.数据存储 在指定数据上存放数据，不修改DOM结构。页面刷新后存放的数据会消失
+        // 可以获取H5自定义数据，不用写data- 可以返回数字型数据
+        // data("属性","属性值") data("属性")
+
+        // 设置元素内容
+        // html() 获取innerHTML
+        // html("内容") 修改innerHTML
+        // 设置元素文本内容
+        // text() 获取innerText
+        // text("内容") 修改innerText
+        // 设置表单之
+        // val() 获取value
+        // val("value") 设置value
+
+        // 遍历元素
+        // 隐式迭代对满足条件的对象做相同操作，做不同操作需要遍历
+        // .each方法
+        // .each(function(index,DOMelem)) 遍历每一个元素，主要用DOM处理
+        // index是每个元素的索引号 DOMelem是DOM对象，不是jQuery对象
+        // var cssItem = ["red","green","blue"] 然后调用index
+        // $.each()方法
+        // 遍历元素，主要用于遍历数据
+        // $.each(object,function(index,ele))
+        // object可以是任何对象； 应用在对象时 index为属性名 ele为属性值
+
+        // 元素操作
+        // 1.创建元素
+        // 创建：$("<li>我是创建的列表</li>")
+        // 2.添加元素：
+        // 内部添加(父子关系)：append(ele) 放置到匹配元素的最后面
+        //           prepend(ele) 放置到匹配元素的最前面
+        // 外部添加(兄弟关系)：ele.after(ele) 放置到匹配元素的后面
+        //           ele.before(ele) 放置到匹配元素的前面
+        // 3.删除元素
+        // remove() 删除元素本身
+        // empty() 删除匹配元素的子节点
+        // html("") 清空匹配的元素内容
+
+        // jQuery尺寸
+        // width()/height() 取得匹配元素的宽度和高度,只有width和height
+        // innerWidth()/innerHeight() 取得匹配元素的宽度和高度 padding
+        // outerWidth()/outerHeight() 包含padding、border
+        // outerWidth(true)/outHeight(true) 包含padding、border、margin
+        // ()里添加数据可以修改内容，不必带单位
+
+        // jQuery位置
+        // offset() position() scrollTop()/scrollLeft()
+        // 1.offset()设置或者返回被选元素相对于文档的偏移坐标，跟父级没有关系
+        // 有top和left属性 e.g. offset().top()
+        // offset({
+        //     top:100;
+        //     left:100
+        // })
+        // 2.position() 获取距离带有定位父级的位置偏移，没有则以文档为准
+        // 只能获取，不能设置
+        // 3.scrollTop()/scrollLeft() 获取元素被卷去的头部/侧面
+
+        // 节流阀 （互斥锁）
+        // 设置全局变量，动画运行在合适的时间，通过修改flag的true和false属性来
+
+        // jQuery事件
+        // 1.事件注册
+        // ele.事件(function(){});
+        // ---------------------
+        // 2.事件处理 on绑定 可以绑定一个或者多个
+        // ele.on(events,[selector,]fn)
+        // events一个或者多个用空格分隔的事件类型 或者用逗号隔开不同的事件类型
+        // selector元素子元素选择器
+        // fn回调函数 绑定在元素上的侦听函数
+        // 绑定不同事件 e.g. ele.on({
+        //     mouseenter:function(){
+        //     },
+        //     click:function(){
+        //     }
+        // });
+        // 绑定相同事件 e.g.
+        // ele.on("mouseover mouseout",function(){});
+        // 利用on()实现事件委托
+        // e.g. $("div").on("click","li",function(){}) 事件绑定在div上，由li冒泡触发
+        // on() 可以给未来创建的动态元素绑定事件 但是动态元素不能用click()方法绑定事件
+        // 
+        // off()解绑事件
+        // ele.off() 解除全部事件
+        // ele.off("event") 接触指定事件
+        // ele.off("event","selector") 解除绑定的事件委托
+        //
+        // 对于只想触发一次的事件 one() 仅能触发时间一次
+        // 写法格式与on相同
+
+        // 自动触发事件
+        // 1.ele.event();
+        // 2.trigger() 方法
+        // ele.trigger("type")
+        // 3.triggerHandler
+        // ele.triggerHandler("type")
+        // 相比于2方法，该方法不触发事件的默认行为
+
+        // 事件对象
+        // ele.on(events,[selector,]function(e){})
+        // 阻止默认行为 e.preventDefault() 或者return false()
+        // 阻止冒泡 e.stopPropagation()
+
+        // jQ拷贝对象
+        // $.extend([deep],target,object1,[objectN])
+        // deep 默认为false 为true时为浅拷贝
+        // target要拷贝的目标对象
+        // object1 待拷贝到的第一个对象的对象
+        // objectN 待拷贝到的第N个对象的对象
+        // 会覆盖原有的数据
+        // 浅拷贝会将目标数据中的复杂数据类型的地址赋值给目标变量，修改原数据会导致被拷贝的数据改变
+
+        // 多库共存问题
+        // 将$改为jQuery
+        // $.noConflict()
+        // var tag = $.noConflict() 由用户自定义标签
+        // e.g. var suibian = $.noConflict()
+
+        // DOMContentLoaded方法
+        // $(document).ready(function () {
+        //     $('.box').hide();
+        // })
+
+        // 更简单的形式,等同于上面的方法
+        // $(function () {
+        //     $('.box').hide();
+        // })
+
+        // jQuery插件
+        // 功能有限，更复杂的效果需要插件实现
+        // 使用前提是引入了jQuery
+        // 常用网站 www.jq22.cm/   www.htmleaf.com/
+        // 提高网页性能：懒加载
+        
+        // bootstrap插件 依赖于jquery
+
+        // Echarts数据可视化 基于javascript
+    </script>
+</head>
+
+<body>
+    <div class="box"></div>
+    <button class="btn">按钮</button>
+    <script>
+        // 隐藏box
+        // $('.box').hide();
+
+        $(function(){
+            $(".btn").click(function(){
+                $(".box").animate({
+                    left:500
+                },500);
+            })
+        })
+    </script>
+</body>
+
+</html>

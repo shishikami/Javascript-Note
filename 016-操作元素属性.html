@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>操作元素属性</title>
+    <script>
+        // 常用元素属性操作：
+        // innerHTML innerText修改元素内容
+        // src href
+        // id alt title
+
+        // 样式属性操作
+        // element.style
+        // element.className
+
+        // 获取元素属性：
+        // element.属性 获取元素自带的属性(内置属性)
+        // 或者
+        // element.getAttribute('属性') 获取自定义属性（自己添加的属性）
+
+        // 设置属性
+        // element.属性 = '新属性'
+        // element.setAttribute('属性',新的值)
+        // e.g. element.setAttribute('class','footer')
+
+        // 移除属性
+        // element.removeAttribute('属性')
+
+        // H5自定义属性
+        // 规定自定义属性以data-开头
+        // H5新增自定义属性获取方法 自定义属性格式：data-属性名 ie11+
+        // element.dataset.属性名 或者
+        // element.dataset['属性名']
+        // 属性名中有多个-,需采用驼峰命名书写属性
+        // e.g. 属性名 list-name 应使用element.dataset.listName
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #pic1 {
+            display: block;
+            width: 400px;
+            height: 450px;
+        }
+
+        #btn_bar1 {
+            background-color: aqua;
+            width: 400px;
+            height: 80px;
+            margin-top: 10px;
+            overflow: hidden;
+            font-size: 0;
+        }
+
+        #btn_bar2 {
+            width: 400px;
+            height: 60px;
+            background-color: grey;
+            margin-top: 10px;
+            font-size: 0;
+        }
+
+        #btn_in1 {
+            width: 60px;
+            height: 40px;
+            margin: 10px 10px;
+            font-size: 18px;
+        }
+
+        #bar_in1 {
+            width: 300px;
+            height: 40px;
+            margin: 10px 10px;
+            font-size: 18px;
+        }
+
+        .b_t1 {
+            border: 0;
+            display: inline-block;
+            width: 170px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 18px;
+            background-color: pink;
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .t_2 {
+            display: inline-block;
+        }
+
+        #btn_bar3 {
+            position: relative;
+            width: 400px;
+            border-bottom: 1px solid #ccc;
+            margin-top: 20px;
+        }
+
+        #btn_bar3 input {
+            width: 368px;
+            height: 40px;
+            border: 0;
+            outline: none;
+        }
+
+        #btn_bar3 img {
+            position: absolute;
+            top: 8px;
+            right: 2px;
+            width: 32px;
+            border-left: 2px solid #ccc;
+            padding-left: 6px;
+        }
+
+        #btn_bar3 label {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            height: 40px;
+            width: 30px;
+        }
+
+        #btn_bar4 {
+            width: 400px;
+            height: 200px;
+            background-color: rgb(0, 0, 0);
+        }
+
+        #btn_bar5 {
+            margin-top: 20px;
+            position: relative;
+            width: 400px;
+            height: 380px;
+        }
+
+        #bar5_1 {
+            box-sizing: border-box;
+            padding: 10px;
+            display: block;
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            width: 380px;
+            height: 380px;
+        }
+
+        #bar5_2 {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            width: 20px;
+            height: 20px;
+        }
+
+        #input_bar6 {
+            box-sizing: border-box;
+            padding: 0 10px;
+            width: 400px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 18px;
+            outline: none;
+        }
+
+        .change1 {
+            width: 400px;
+            height: 200px;
+            background-color: #333;
+        }
+
+        .change2 {
+            width: 400px;
+            height: 250px;
+            background-color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="imgsource/001.jpg" id="pic1" title="薛墩墩">
+    <div id="btn_bar1">
+        <button id="btn1" class="b_t1">薛墩墩</button>
+        <button id="btn2" class="b_t1">冰墩墩</button>
+    </div>
+
+    <script>
+        // 获取元素
+        var btn_x = document.getElementById('btn1');
+        var btn_b = document.getElementById('btn2');
+        var pic_1 = document.getElementById('pic1');
+        // 注册事件 处理程序
+        btn_x.onclick = function () {
+            pic_1.src = 'imgsource/001.jpg';
+            pic_1.title = '薛墩墩';
+        }
+
+        btn_b.onclick = function () {
+            pic_1.src = 'imgsource/002.jpg';
+            pic_1.title = '冰墩墩';
+        }
+    </script>
+
+    <div id="btn_bar2">
+        <button class="t_2" id="btn_in1">按钮</button>
+        <input type="text" value="输入内容" class="t_2" id="bar_in1">
+    </div>
+
+    <script>
+        // 操作表单数据 type value checked selected disabled
+        // 获取按钮：
+        var input_btn1 = document.getElementById('btn_in1');
+        var input_bar1 = document.getElementById('bar_in1');
+
+        // 注册对象 处理程序
+        // innerHTML是普通盒子具有的
+        // 表单的操作要通过value
+        input_btn1.onclick = function () {
+            var date = new Date();
+            input_bar1.value = date.toString();
+            // input_bar1.value = date.toDateString();
+
+            // 想让按钮禁用：(两种方式)
+            // input_btn1.disabled = true;
+            // this指向函数的调用者
+            // this.disabled = true;
+        }
+    </script>
+
+    <div id="btn_bar3">
+        <label for="img_eye">
+            <img src="imgsource/eye-close.png" id="img_eye">
+        </label>
+        <input type="password" name="" id="btn_pwd1" value="郭政都是个傻逼">
+    </div>
+
+    <script>
+        // 按钮
+        var btn_eye = document.getElementById('img_eye');
+        var pwd_text = document.getElementById('btn_pwd1');
+        var flag = 0;
+        btn_eye.onclick = function () {
+            if (flag == 0) {
+                btn_eye.src = 'imgsource/eye-open.png';
+                pwd_text.type = 'text';
+                flag = 1;
+            }
+            else {
+                btn_eye.src = 'imgsource/eye-close.png';
+                pwd_text.type = 'password';
+                flag = 0;
+            }
+        }
+    </script>
+
+    <div id="btn_bar4">
+
+    </div>
+
+    <script>
+        var bar4 = document.getElementById('btn_bar4');
+        var a = 0;
+        var b = 0;
+        var c = 0;
+        bar4.onclick = function () {
+            console.log('我被点击了');
+            a += 8;
+            b += 6;
+            c += 4;
+            if (a > 255) {
+                a -= 255;
+            }
+            if (b > 255) {
+                b -= 255;
+            }
+            if (c > 255) {
+                c -= 255;
+            }
+            // 修改div的背景颜色
+            this.style.backgroundColor = 'rgb(' + a + ',' + b + ',' + c + ')';
+        }
+    </script>
+
+    <div id="btn_bar5">
+        <img src="imgsource/001.jpg" id="bar5_1"></img>
+        <img src="imgsource/cross.png" id="bar5_2"></img>
+    </div>
+
+    <script>
+        var btn_bar_cross = document.getElementById('bar5_2');
+        var btn_bar5 = document.getElementById('btn_bar5');
+
+        btn_bar_cross.onclick = function () {
+            btn_bar5.style.display = 'none';
+        }
+    </script>
+
+    <div id="btn_bar6">
+        <input type="text" value="郭政都傻逼" id="input_bar6">
+    </div>
+
+    <script>
+        // 事件：
+        // 获得焦点 onfocus
+        // 失去焦点 onblur
+        var btn_bar6 = document.getElementById('input_bar6');
+        btn_bar6.onfocus = function () {
+            if (this.value === '郭政都傻逼') {
+                this.value = '';
+                this.style.color = '#333';
+            }
+            // console.log('我获得了焦点');
+        }
+
+        btn_bar6.onblur = function () {
+            // console.log('我失去了焦点');
+            if (this.value === '') {
+                this.value = '郭政都傻逼';
+                this.style.color = '#999';
+            }
+        }
+    </script>
+
+    <div class="change1" id="change">
+
+    </div>
+    <div>
+        这是占位区域qwq
+    </div>
+
+    <script>
+        var change_bar = document.getElementById('change');
+        change_bar.onclick = function () {
+            // 将要修改的属性较多时可以考虑创建新的类名，直接替换原类名即可
+            // className会覆盖原类名
+            // 也可直接增添： className = 'first second' / className += 'second'
+            if (this.className === 'change1') {
+                this.className = 'change2';
+            }
+            else {
+                this.className = 'change1';
+            }
+        }
+    </script>
+</body>
+
+</html>

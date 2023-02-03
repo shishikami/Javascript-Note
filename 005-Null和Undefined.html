@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Null和Undefined以及typeof</title>
+    <script>
+        //声明未赋值即为undefined
+        var a;
+        console.log(a);
+
+        //与字符串相加为字符
+        //与数字相加为NaN
+        var b = undefined;
+        console.log(b + 1);
+
+        //空值
+        //与字符串相加为字符
+        //与数字相加为原先的数字
+        var c = null;
+        console.log(c + 1);
+
+        var d = '我是谁？';
+        var e = 110;
+        var f = true;
+        console.log(typeof a);
+        console.log(typeof b);
+        console.log(typeof c);
+        console.log(typeof d);
+        console.log(typeof e);
+        console.log(typeof f);
+
+        //另附
+        //prompt返回值为字符串型
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件进阶</title>
+    <script>
+        // 注册事件的两种方法 传统方式 & 方法监听注册方式
+        // 一、传统方法
+        // on开头的事件
+        // 注册事件的唯一性：同一个事件只能设置一个处理函数，后加的处理函数会覆盖之前的处理函数
+
+        // 二、方法监听注册方式 w3c推荐
+        // addEventListener() IE9之后支持
+        // 同一个元素同一个事件可以添加多个注册器，按注册顺序依次执行
+        // target.addEventListener(type, listener, useCapture);
+        // type 事件类型字符串，不带on 例如click、mouseover
+        // listener 事件处理函数，事件发生时调用该监听函数
+        // useCapture 布尔值可选参数
+
+        // attachEvent() IE9之前 别用！别用！别用！
+        // attachEvent(evenNameWithOn,callback)
+
+        // 删除事件/解绑事件
+        // 一、传统方式
+        // element.event = null;
+        // 二、方法监听注册方式
+        // target.removeEventListener(type, listener[, useCapture]);
+        // listener不能采取匿名函数的形式 参数中的函数名不用加()
+
+        // element.detachEvent(evenNameWithOn,callback)
+
+        // DOM事件流
+        // 描述页面中接收事件的顺序 事件发生时会在元素节点中按照一定的顺序传播，这个传播顺序即为DOM事件流
+        // 分为三个阶段： 捕获阶段 当前目标阶段 冒泡阶段
+        // 实际代码中更关注冒泡
+        // 部分事件无冒泡：onblur onfocus onmouseenter onmouseleave
+
+        // 事件对象 兼容性IE 678
+        // e.g. btn.onclick = function(event){}
+        // event就是一个事件对象，写在侦听函数的小括号里当作形参来看
+        // 事件对象在事件发生后才存在，系统自动创建，无需提供参数
+        // 事件对象 是跟事件相关的一系列数据的集合
+
+        // event常用属性
+        // e.target 返回触发事件的对象(标准)
+        // e.target 相比于 this, this返回绑定事件的对象 与this非常相似的一个属性currentTarget
+        // e.srcElement 返回触发事件的对象(IE678 非标准)
+        // e.type 返回事件类型 click mouseover
+        // e.preventDefault() 阻止默认事件 标准 e.g.不让链接跳转
+        // e.preventPropagation() 阻止冒泡 标准
+
+        // 事件委托
+        // 原理：不给每个子节点设置事件监听器，设置在父节点上，由冒泡原理触发
+        // 作用：只操作一次DOM提高了性能
+
+        // 禁止选中文字、禁止弹出右键菜单
+        // 禁止选中文字:addEventListener('contextmenu',function(e){e.preventDefault;})
+
+        // 鼠标事件对象
+        // e.clientX 相对浏览器窗口可视区的坐标 以可视窗口为准，不变
+        // e.clientY
+        // e.pageX 相对于文档页面的坐标 IE9+ (重点)
+        // e.pageY
+        // e.screenX 相对于电脑屏幕的坐标
+        // e.screenY
+
+        // 鼠标移动 mousemove
+
+        // 键盘事件对象
+        // onkeyup 某个按键被松开时
+        // onkeydown 某个按键被按下时
+        // onkeypress 某个按键被按下时，但不识别功能键 shift ctrl
+        // 在addEventListener中要去掉on
+        // 执行顺序 down press up
+    </script>
+    <style>
+        #father {
+            width: 200px;
+            height: 200px;
+            background-color: #999;
+        }
+
+        #son {
+            width: 100px;
+            height: 100px;
+            background-color: #333;
+        }
+
+        #bar_3 {
+            width: 200px;
+            height: 200px;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="father">
+        <div id="son">
+            son
+        </div>
+    </div>
+
+    <script>
+        // DOM事件流代码验证
+        // Js代码仅能执行捕获或者冒泡阶段中的一个阶段
+        // onclick和attachEvent仅能得到冒泡阶段
+        // addEventListener()第三个参数如果是true，表示在事件捕获阶段调用事件处理程序；false则在冒泡阶段
+
+        // var son = document.getElementById('son');
+        // son.addEventListener('click', function () {
+        //     alert('son');
+        // }, true);
+
+        // var father = document.getElementById('father');
+        // father.addEventListener('click', function () {
+        //     alert('father');
+        // }, true);
+        // 点击son 先显示father
+
+        var son = document.getElementById('son');
+        son.addEventListener('click', function () {
+            alert('son');
+        }, false);
+
+        var father = document.getElementById('father');
+        father.addEventListener('click', function () {
+            alert('father');
+        }, false);
+    </script>
+
+    <div id="bar_3">
+        123
+    </div>
+
+    <script>
+        var bar_3 = document.getElementById('bar_3');
+        // bar_3.onclick = function (event) {
+        //     console.log(event);
+        // }
+        bar_3.addEventListener('click', function (event) {
+            console.log(event);
+        })
+    </script>
+
+    <div id="bar_4">
+        禁止右键菜单
+    </div>
+    <div id="bar_5">
+        禁止鼠标选中 F12还是能选中。。
+    </div>
+
+    <script>
+        // 禁止右键菜单
+        var bar_4 = document.getElementById('bar_4');
+        bar_4.addEventListener('contextmenu', function (event) {
+            event.preventDefault();
+        })
+        var bar_5 = document.getElementById('bar_5');
+        bar_5.addEventListener('selectstart', function (event) {
+            event.preventDefault();
+        })
+    </script>
+
+    <script>
+        document.addEventListener('click', function (event) {
+            console.log('Client: (' + event.clientX + ',' + event.clientY + ')');
+            console.log('Page: (' + event.pageX + ',' + event.pageY + ')');
+        })
+    </script>
+</body>
+
+</html>

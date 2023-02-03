@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form表单</title>
+    <script>
+        // 表单：主要负责数据采集，通过form标签的提交操作，把数据提交到服务器
+        // 分为表单标签 表单域 表单按钮
+        // form 属性用来规定数据如何传送到服务器
+        // 常用属性 action method enctype target
+
+        // 1.action 规定提交表单时向何处发送数据 应当是一个后端的URL地址，负责处理接收的数据
+        //   未指定action属性时，默认提交到当前页面
+        //   表单提交后会立即跳转到指定URL处，将提交的数据以字符串形式放置到URL地址后
+
+        // 2.target属性： 默认值:_self，在相同的框架中打开 _blank 新窗口打开
+        //   比较少用的：_parent父框架集中打开 _top在整个窗口中打开 franmname在指定框架中打开
+
+        // 3.method 规定以何种方式把表单数据提交到action URL 有get和post两种可选值
+        //   默认为get 通过URL地址的形式把数据提交到URL处
+        //   post不会在URL中体现，数据通过Form Data形式提供 | post方式更安全一些
+        //   get适合提交少量简单的数据 post适合大量、复杂或者包含文件上传的数据
+        //   一般使用post很少使用get
+
+        // 4.enctype 规定发送表单数据前如何对数据进行编码
+        //   有三个可选值 application/x-www-form-urlencoded 发送前编码所有字符（默认）
+        //   multipart/form-data 不对字符编码，使用包含文件上传的表单时必须使用该值
+        //   text/plain 空格转化为+号，但不对特殊字符编码 很少使用
+
+        // 表单同步提交
+        // 点击submit按钮，触发提交操作，从而使页面跳转到action URL的行为叫做表单的同步提交
+        // 缺点：同步提交后整个页面发生跳转，跳转至action URL用户体验差
+        //       页面之前的状态和数据会丢失
+        // 解决方法：表单只采集数据，由Ajax负责提交数据至服务器
+
+        // 通过Ajax提交表单数据
+        // 1.监听表单提交事件
+        // jQuery中两种方式可以监听到表单的提交数据
+        // $("...").submit(function(e){
+        //     ...
+        // })
+        // $("...").on("submit",function(e){
+        //     ...
+        // })
+        // 2.阻止表单默认提交行为
+        // 调用e.preventDefault() 阻止表单的提交和跳转
+        // 3.获取表单中的数据
+        // serialize() 获取表单元素，调用该函数
+        // 调用该函数需要给表单元素添加name属性
+        // name1=..&name2=..
+
+        // XMLHttpRequest
+        // xhr浏览器提供的js对象 可以请求服务器上的数据资源
+        // jq中ajax函数由xhr对象封装而来
+
+        // 使用xhr发起GET请求：
+        // 1、创建xhr对象
+        // 2、调用xhr.open()函数
+        // 3、调用xhr.send()函数
+        // 4、监听xhr.onreadystatechange事件
+        // let xhr = new XMLHttpRequest();
+        // xhr.open("GET", "http://...")
+        // xhr.send();
+        // xhr.onreadystatechange = function () {
+        //     if (xhr.readyState === 4 && xhr.status === 200) {
+        //         ...
+        //     }
+        // }
+
+        // xhr的readystate：
+        // 0：Unsent 对象已创建，尚未调用open方法
+        // 1：Opened open方法调用完成
+        // 2：Headers_Received send方法调用且响应头已经被接受
+        // 3：Loading 数据接收中，此时response属性中已经包含部分数据
+        // 4：Done Ajax请求完成 意味着数据传输彻底完成/失败
+
+        // get请求可以携带参数
+        // 在调用open方法时制定参数即可
+        // xhr.open("GET","http://......?id=1");
+        // 拼接的参数为查询字符串
+        // 将?放置url末尾参数形式为：参数=值 多个参数之间用&分割
+
+        // 对URL进行编码 解码
+        // encodeURL()
+        // decodeURL()
+
+        // 使用xhr发起POST请求：
+        // 1、创建xhr对象
+        // 2、调用xhr.open()函数
+        // 3、设置COntent-Type属性（固定写法）
+        // 4、调用xhr.send("name=value&name=value...")函数
+        //    将数据以查询字符串的形式提交到服务器 不用添加问号
+        // 5、监听xhr.onreadystatechange事件
+        // let xhr = new XMLHttpRequest();
+        // xhr.open("POST", "http://...")
+        // xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+        // xhr.send("name=value&name=value...");
+        // xhr.onreadystatechange = function () {
+        //     if (xhr.readyState === 4 && xhr.status === 200) {
+        //         ...
+        //     }
+        // }
+
+
+        // 数据交换格式
+        // 服务器端与客户端进行数据传输与交换的格式
+        // 前端比较常用的为json和XML XML使用也相对较少
+
+        // XML Extensible Markup Language 可扩展标记语言 类似html
+        // 缺点：
+        // 1.格式比较臃肿 无关代码比较多 体积大 效率低
+        // 2.解析比较麻烦
+
+        // JSON
+        // Javascript Object Notation js对象表示法
+        // js对象和数组的字符串表示法 本质为字符串
+        // 轻量级文本数据交换格式 作用类似XML
+        // 体积小 速度快 更容易解析
+
+        // JSON两种结构
+        // 1.对象结构：
+        // {}括起来的内容 结构为{key:value,key:value}
+        // key为英文的双引号
+        // value数据类型为 数字 字符串 布尔值 null 数组 对象
+        // 2.数组结构
+        // []括起来的内容
+        // 包括 数字 字符串 布尔值 null 数组 对象
+
+        // JSON和js对象的转化
+        // JSON.parse()方法
+        // JSON.stringify()方法
+
+        // xhr.responseText JSON
+
+        // 序列化 反序列化
+        // 序列化 转为JSON
+
+        // 封装自己的Ajax函数...
+
+        // 新版XMLHttpRequest特性
+        // 旧版缺点：1.只支持文本数据传输 无法用来读取、上传文件
+        //          2.传送和接收数据的时候没有进度信息，只能提示有没有完成
+        // 新版：1.可以设置HTTP请求时限
+        //      2.使用FormData对象管理表单数据
+        //      3.可以上传文件
+        //      4.可以获得信息传输的进度信息
+
+        // timeout属性 设置http请求时限
+        // 超期会自动停止http请求
+        // let xhr = new XMLHttpRequest();
+        // xhr.timeout = 3000;
+        // xhr.ontimeout = function () {
+        //     alert("请求寄啦~");
+        // }
+
+        // FormData对象管理表单数据
+        // let fd = new FormData();
+        // fd.append("username", "zs");
+        // fd.append("pwd", "123");
+
+        // let xhr = new XMLHttpRequest();
+        // xhr.open(...);
+        // xhr.send(fd);
+
+        // 也可以直接获取表单数据
+        // x.addEventListener("submit", function (e) {
+        //     e.preventDefault();
+        //     自动将表单数据填充到FormData对象中
+        //     let fd = new FormData(form);
+        //     let xhr = new XMLHttpRequest();
+        //     xhr....
+        // })
+
+        // 上传文件功能：
+        // 1. 定义UI结构
+        // 2. 验证是否选择了文件
+        // <input type="file" id="file1" />
+        // let files = document.querySelector("#file1").files;
+        // if (files.length <= 0) {
+        //     return alert("木得文件");
+        // }
+
+        // 3. 向FormData追加文件
+        // let fd = new FormData();
+        // fd.append("name",filse[0]);
+
+        // 4. 使用xhr发起上传文件的请求
+        // 往前翻
+
+        // 5. 监听onreadystatechange事件
+
+
+        // 显示文件上传进度
+        // 监听 xhr.upload.onprocess事件
+        let xhr = new XMLHttpRequest();
+        xhr.upload.onprogress = function (e) {
+            // e.lengthComputable布尔值 表示上传资源是否有可计算的长度
+            if (e.lengthComputable) {
+                var percentComplete = Math.ceil((e.loaded / e.total) * 100);
+            }
+        }
+    </script>
+
+    <script src="jssource/axios.js"></script>
+    <button id="btn">按钮</button>
+    <script>
+        // axios
+        // 专注于网络数据请求的库 简单易用 轻量化
+
+        // console.dir(axios);
+
+        // axios发起GET请求
+        // axios.get('url',{param:{参数}}).then(callback);
+        // document.querySelector("#btn").addEventListener("click", function () {
+        //     let url = "..";
+        //     let paramObj = { name: "abc", age: 20 };
+        //     axios.get(url, { param: paramObj }).then(function (res) {
+        //         console.log(res.data);
+        //     })
+        // })
+
+        // axios发起POST请求
+        // axios.post('url',{param:{参数}}).then(callback);
+
+        // 直接使用axios发起请求
+        // axios({
+        //     method: "类型",
+        //     url: "",
+        //     data: { post数据 },
+        //     params: { get数据 }
+        // }).then(callback)
+
+        // 如果返回值为Promise对象
+        // 则可在函数前加await
+        // 但await只能使用在async修饰的方法中
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

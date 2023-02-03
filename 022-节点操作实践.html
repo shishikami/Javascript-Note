@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节点操作实践</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+        }
+
+        li {
+            background-color: #ccc;
+            width: 200px;
+            height: 40px;
+            line-height: 40px;
+            margin-top: 10px;
+        }
+
+        li>a {
+            margin-right: 10px;
+            float: right;
+        }
+
+        textarea {
+            width: 200px;
+            height: 60px;
+            line-height: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <textarea name="" id=""></textarea>
+    <button>发布</button>
+    <button>复制节点</button>
+    <ul></ul>
+
+    <button>删除节点</button>
+    <ul>
+        <li>熊二</li>
+        <li>熊大</li>
+    </ul>
+
+    <script>
+        var btn = document.querySelectorAll('button');
+        var text_in = document.querySelector('textarea');
+        var list = document.querySelectorAll('ul');
+
+        btn[0].onclick = function () {
+            // 判断文本框内容
+            if (text_in.value == '') {
+                console.log('无内容输入');
+            }
+            else {
+                // 创建元素节点
+                var li = document.createElement('li');
+                // 对li元素赋值
+
+                // href="javascript:;"阻止链接跳转 或 javascript:void(0);
+                li.innerHTML = text_in.value + "<a href='javascript:;'>删除</a>";
+                // 添加元素节点
+                list[0].insertBefore(li, list[0].children[0]);
+                // console.log(text_in.value)
+                // 删除节点
+                li.children[0].onclick = function () {
+                    this.parentNode.parentNode.removeChild(this.parentNode);
+                }
+            }
+        }
+
+        btn[2].onclick = function () {
+            var tar_ul = list[1];
+            tar_ul.removeChild(tar_ul.children[0]);
+            if (list[1].children.length == 0) {
+                this.disabled = true;
+                console.log('No element remains')
+            }
+        }
+
+        btn[1].onclick = function () {
+            // console.log('朱梓华废物！');
+            var ele = list[0].children[1].cloneNode(true);
+            list[0].insertBefore(ele, list[0].children[0]);
+        }
+    </script>
+
+</body>
+
+</html>

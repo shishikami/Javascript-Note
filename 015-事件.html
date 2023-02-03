@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #bar_1 {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+
+        #bar_1>p {
+            width: 200px;
+            height: 200px;
+            line-height: 200px;
+            font-size: 20px;
+            text-align: center;
+            text-decoration: line-through;
+        }
+
+        #bar_2 {
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 16px;
+            text-align: center;
+            background-color: aqua;
+        }
+    </style>
+    <script>
+        // 事件：可以被js捕捉到的行为
+        // 事件三要素：事件源 事件类型 事件处理程序
+        // 1 事件源：事件被触发的对象
+        // 2 事件类型：如何触发（什么事件
+        // 3 事件处理程序：通过函数打到对应功能
+
+        // 改变元素内容：
+        // 1. element.innerText
+        // 从起始到终止位置，去除html标签同时空格和换行也会去掉
+
+        // 2. element.innerHTML
+        // 从其实到终止位置全部内容，包括标签，保留空格和换行
+
+        // 两者区别
+        // innerText 不识别html标签        获取内容时：去除html标签同时空格和换行也会去掉
+        // innerHTML 识别html标签（推荐）              保留标签，空格和换行
+    </script>
+</head>
+
+<body>
+    <button id="gzd">这是一个郭政都</button>
+    <div id="bar_1">
+        <p>我是郭政都</p>
+    </div>
+
+    <button id="btn_1">点我显示过年倒计时</button>
+    <div id="bar_2">
+        <p>此处应有倒计时</p>
+    </div>
+    <div id="bar_3"></div>
+    <div id="bar_4"></div>
+    <script>
+        // 定位事件源
+        var btn_gzd = document.getElementById('gzd');
+        // 事件类型 事件处理程序
+        btn_gzd.onclick = function () {
+            alert('gzd傻逼');
+        }
+
+        var div_bar = document.querySelectorAll('div');
+        console.log(div_bar);
+        div_bar[0].onclick = function () {
+            console.log('gzd被点击了');
+        }
+
+        var t_time = new Date('2023-1-22 00:00:00');
+
+        var cD = function (time) {
+            var nowTime = +new Date();
+            var targetTime = +new Date(time);
+            var surplusTime = (targetTime - nowTime) / 1000; // 将毫秒转化为秒
+            var d = parseInt(surplusTime / 60 / 60 / 24);
+            var h = parseInt(surplusTime / 60 / 60 % 24);
+            h = h < 10 ? '0' + h : h;
+            var m = parseInt(surplusTime / 60 % 60);
+            m = m < 10 ? '0' + m : m;
+            var s = parseInt(surplusTime % 60);
+            s = s < 10 ? '0' + s : s;
+            return d + '天' + h + '小时' + m + '分' + s + '秒';
+        }
+
+        var btn_time = document.getElementById('btn_1');
+        var time_text = (document.getElementById('bar_2')).querySelector('p');
+
+        btn_time.onclick = function () {
+            time_text.innerText = cD(t_time);
+            // 可改为innerHTML
+        }
+
+        var bar3 = document.getElementById('bar_3');
+        bar3.innerHTML = '<strong>今天是</strong>:2022-8-9   星期二'
+        var bar4 = document.getElementById('bar_4');
+        bar4.innerText = '<strong>今天是</strong>:2022-8-9   星期二'
+
+        console.log('HTML:');
+        console.log(bar3.innerHTML);
+        console.log('Text:');
+        console.log(bar3.innerText);
+    </script>
+</body>
+
+</html>

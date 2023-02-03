@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动画原理</title>
+    <script>
+        // animation添加动画：
+        // 一、定义动画
+        // @keyframe name {
+        //     from{}
+        //     to{}
+        // }
+        // 其他形式：
+        // @keyframe name{
+        //     0%{}
+        //     25%{}
+        //     50%{}
+        //     ...
+        //     100%{}
+        // }
+        // 二、使用动画
+        // 给对应元素添加属性
+        // 1.简单形式： animation：name， duration；
+        // 2.完全形式： animation：名称1 时长 速度曲线 延迟时间 重复次数 动画方向 执行完毕状态，
+        //                        名称2 时长 速度曲线 延迟时间 重复次数 动画方向 执行完毕状态；
+        // 前两者必须
+        // 速度曲线： linear()
+        // steps(n) 将动画分成几部分
+        // 无限循环动画设为infinite
+        // alternate: 动画正反执行
+        // 执行完毕的状态：与重复次数、动画方向冲突
+        //               backwards 默认值
+        //               forwards 留在最终状态
+        // 3.分开形式
+        // 拆分为:animation-
+        // name duration delay fill-mode timing-fucntion iteration-count direction play-state(pause为暂停 配合hover使用)
+
+        // 核心原理
+        // 利用setInterval不断移动盒子位置
+        // 添加结束条件，为元素设置定位，这样才能使用ele.style.left/top
+
+        // 动画封装为函数
+        // 需要的参数：元素 移动距离
+
+        // 缓动动画
+        // 慢慢停下来，更自然~
+        // 核心算法：每次移动的距离 = （目标值-当前值）/10
+
+        // 省时省力
+        // Swiper插件
+        // www.swiper.com.cn/
+    </script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .bar {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+
+        .bar2 {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bar"></div>
+    <div class="bar2"></div>
+
+    <script>
+        var bar1 = document.querySelector('.bar');
+        var bar2 = document.querySelector('.bar2');
+
+        // 低劣的原始动画desi
+        // var timer = setInterval(function(){
+        //     bar1.style.left = bar1.offsetLeft + 5 + 'px';
+        //     if(bar1.offsetLeft>=400){
+        //         clearInterval(timer);
+        //     }
+        // },30);
+
+        // 封装函数
+        function animate(obj, target, speed) {
+            // 内容 避免生成同名对象 每个元素有自己的定时器
+            // 避免多次点击产生多个定时器
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                obj.style.left = obj.offsetLeft + 20 + 'px';
+                if (obj.offsetLeft == target) {
+                    clearInterval(obj.timer);
+                    console.log('1:' + obj.offsetLeft);
+                }
+            }, speed);
+        }
+
+        // 可以实现来回移动
+        function animate_plus(obj, target, speed, timespan) {
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                // 由于小数精度问题，步长大概可能需要一些约束条件？
+                // var step = ((target - obj.offsetLeft)/20)>0.5?((target - obj.offsetLeft)/20):0.5;
+                var step = (target - obj.offsetLeft) / speed;
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                obj.style.left = obj.offsetLeft + step + 'px';
+                if (obj.offsetLeft == target) {
+                    clearInterval(obj.timer);
+                    console.log('2:' + obj.offsetLeft);
+                }
+            }, timespan);
+        }
+
+        // 可以添加回调函数
+        // function ..（obj,target,callback）
+        // callback为一个函数
+        // 回调函数写在清除计时器的判断语句里
+        // 比较原始的回调函数判断 if(callback)
+        // 高级判断 callback && callback() 短路运算符
+
+        animate(bar1, 1000, 15);
+        animate_plus(bar2, 1000, 15);
+
+        // 函数封装在js文件中
+    </script>
+</body>
+
+</html>

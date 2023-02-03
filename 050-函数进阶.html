@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Es6Function</title>
+    <script>
+        // 函数定义方式
+        // 1.自定义函数 （匿名函数
+        // function fn(){}
+        // 2.匿名函数
+        // var func = function(){}
+
+        // 3.利用new Function('参数1','参数2',...,'函数体')；
+        // 必须用引号括起来（字符串形式
+        // 效率低，不要用
+
+        // 所有函数都是Function的实例对象
+        // 函数也是对象
+
+        // this指向 在函数调用时确认，一般为函数调用者
+        // 自定义函数调用者为window (window.)fn()
+        // 对象调用的方法指向对象
+        // 定时器函数、立即执行函数this指向window
+
+        // 改变this指向的方法 常用的：call() bind() apply()
+        // apply()
+        // fn.apply(thisArg,[argsArray])
+        // fn运行时this指向
+        // argsArray传递的值，必须包含在数组之中
+
+        // bind()
+        // fn.bind(thisArg,arg1,arg2...)
+        // 不调用函数，改变函数内部的this值
+        // fn运行时this指向
+        // args参数
+        // 返回由指定this值和初始化参数改造的原拷贝函数
+
+        // 严格模式 ES5 ie10+
+        // 改变：
+        // 消除一些不合理 不合理的地方
+        // 消除一些不安全的地方...
+        //
+        // 可以应用在整个脚本或者部分函数 区分为：为脚本开启严格模式 为函数开启严格模式
+        // 为整个脚本(script标签)开启 在所有语句之前添加"use strict";/'use strict';
+        // 为单个函数开启严格模式 函数体开头添加"use strict";/'use strict';
+
+        // 严格模式：
+        // 1.变量
+        // 不允许不声明直接赋值
+        // 不能随意删除已经声明的变量
+        // 2.this指向问题
+        // 全局作用域中this指向undefined 定时器中this指向仍是window
+        // 构造函数不加new调用会报错 new构造函数this仍指向创建的实例对象
+        // 3.函数部分
+        // 函数中不能有重名的参数
+        // 函数必须声明在顶层 不允许在非函数的代码块内声明函数
+
+        // 高阶函数
+        // 将函数作为参数 或者将一个函数作为返回值输出
+
+        // 闭包 closure
+        // 有权访问另一个函数作用域中变量的函数
+        // （访问另一个函数的局部变量、
+        // 延申变量的作用范围
+        // e.g. 利用立即执行函数形成闭包
+
+        // 递归：
+        // 函数内部调用其本身
+
+        // 浅拷贝深拷贝
+        // 浅拷贝只拷贝一层，深层的对象将使用引用
+        // 浅拷贝
+        // Object.assign(target,...source)
+        // 深拷贝
+        var deepCopy = function (target, source) {
+            for (var k in source) {
+                var item = source[k];
+                if (item instanceof Array) {
+                    target[k] = [];
+                    deepCopy(target[k], item);
+                }
+                else if (item instanceof Object) {
+                    target[k] = {};
+                    deepCopy(target[k], item);
+                }
+                else {
+                    target[k] = source[k];
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <script>
+        var a = function () {
+
+        }
+        console.dir(a);
+    </script>
+
+</body>
+
+</html>

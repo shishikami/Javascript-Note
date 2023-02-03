@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节点操作实践</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            width: 320px;
+            height: 40px;
+        }
+
+        thead td,
+        tbody td {
+            border: 1px solid black;
+            height: 40px;
+            width: 80px;
+            line-height: 40px;
+            background-color: #999;
+            text-align: center;
+        }
+
+        tbody td {
+            background-color: #ccc;
+        }
+    </style>
+
+    <script>
+        var p_list = [
+            {
+                name: '赵新磊',
+                subject: '数电实验',
+                scpre: 59
+            }, {
+                name: '郭政都',
+                subject: '数电实验',
+                scpre: 61
+            }, {
+                name: '薛书博',
+                subject: '数电实验',
+                scpre: 101
+            }, {
+                name: '朱梓华',
+                subject: '数电实验',
+                scpre: Infinity
+            }
+        ]
+    </script>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <td>姓名</td>
+                <td>科目</td>
+                <td>成绩</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        var t_body = document.querySelectorAll('tbody')[0];
+        for (var i = 0; i < p_list.length; ++i) {
+            // 创建行
+            var ele = document.createElement('tr');
+            t_body.appendChild(ele);
+            // 创建列
+            for (k in p_list[i]) {
+                var ele_td = document.createElement('td');
+                ele_td.innerHTML = p_list[i][k];
+                ele.appendChild(ele_td);
+            }
+            ele_td = document.createElement('td');
+            ele_td.innerHTML = "<a href='javascript:;'>删除</a>";
+            ele_td.firstElementChild.onclick = function () {
+                this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
+            }
+            ele.appendChild(ele_td);
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM对象</title>
+    <script>
+        // BOM对象 browser object model
+        // 提供独立于内容与浏览器交互的对象 核心对象为window
+        // BOM由一系列相关对象构成，每个对象提供了一定的方法和属性
+        // BOM缺乏标准 兼容性比较差
+
+        // 对比DOM,DOM将文档看作对象，顶级对象为docume 用于操作页面元素 W3C标准
+        // BOM将浏览器看作对象，顶级对象为window 用于浏览器窗口交互 兼容性比较差
+
+        // BOM比DOM更大， window {document,location,navigation,screen,history }
+        // 所以原本的document.querySelector原本为window.document....
+
+        // window是浏览器的顶级对象，有双重属性
+        // 1. Js访问浏览器窗口的一个接口
+        // 2. 全局对象； 定义在全局作用域中的变量、函数，都会成为window对象的属性和方法
+        //    调用时可省略window.
+        //    window.name为自带属性
+
+        // window对象常见事件
+        // 窗口加载事件 window.onload = functio(){} 或者 window.addEventListener('load',function(){})
+        // 文档内容全部加载完成后会触发的事件 包括图像、脚本文件、CSS等 后调用的处理函数
+        // 此后可以将js代码放在任何位置
+        // 但是传统的方式仅能添加一次，结果以最后添加的效果为准
+        // 使用addEventListener则没有任何限制
+
+        // 窗口加载事件
+        // addEventListener('DOMContentLoaded',function(){}) IE9以上支持
+        // DOMContentLoaded事件触发时，仅当DOM加载完毕，不包括样式表、图片、flash
+        // 如果页面图片很多的情况，onload触发时间较长，此时交互效果就不能实现，此时使用DOMContentLoaded比较合适
+
+        // 调整窗口大小的事件
+        // window.onresize = function() 或 window.addEventListener('resize',function(){})
+        // 调整窗口大小加载事件，触发时调用的函数
+        // 只要窗口大小像素发生变化便会触发
+        // 可利用这个完成响应式布局 window.innerWidth当前屏幕宽度
+
+        // 定时器
+        // 1、setTimeout()
+        // window.setTimeout(调用函数[，延迟的毫秒数]);
+        // 定时器到期后执行调用函数,调用函数可以直接写函数或者函数名
+        // 延迟时间单位为毫秒，省略则默认为0
+        // 页面中可能有很多定时器，可以给定时器添加标识符
+        // e.g. var timer1 = setTimeout(callback,t_sec);
+        // 停止计时器 
+        // window.clearTimeout(timeoutID)
+
+        // ***
+        // 回调函数 callback
+        // 等待一段时间后才去调用，不按代码顺序执行 包括onclick的函数等
+
+
+        // 2、setInterval()
+        // 重复调用一个函数，每隔一段时间，调用回调函数
+        // 清除定时器
+        // window.clearInterval()
+
+        // this指向问题
+        // 一般情况最终指向调用它的对象
+        // 全局作用域或者普通函数中this指向全局对象window，setInterval、setTimeout
+        // 方法调用中谁调用指向谁
+        // 构造函数中this指向构造生成的实例
+    </script>
+</head>
+<body>
+    <script>
+        // e.g. 全局对象； 定义在全局作用域中的变量、函数，都会成为window对象的属性和方法
+        var a = 10;
+        console.log(a);
+        console.log(window.a);
+
+        function num(){
+            console.log(20);
+        }
+        num();
+        window.num();
+    </script>
+
+    <div id="bar_1">10</div>
+
+    <script>
+        var count = 10;
+        var bar_1 = document.getElementById('bar_1');
+        var count_down = function(){
+            setTimeout(function(){
+                count -= 1;
+                // console.log(count);
+                // console.log(typeof count);
+                bar_1.innerHTML=count;
+                if(count==0){
+                    alert('爆炸了！');
+                }
+                if(count>0){
+                    count_down();
+                }
+            },1000);
+        }
+        window.addEventListener('load',count_down());
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>运算符</title>
+    <script>
+        //++i i++
+        var a = 10,
+            b = 10;
+        //++i 先加再用
+        //i++ 先用再加
+        console.log(a++);
+        console.log(++b);
+
+        var c = 10;
+        console.log(c++ + ++c);//22
+        console.log('----------------------------')
+
+        // ==(判等号) 会自动转化类型 字符串型会试图转化为数字型
+        console.log(19 == '19'); //true
+        // ===全等号  要求一模一样 要求值与类型均一样
+        console.log(19 === '19'); //false
+        console.log('----------------------------')
+
+        // 与或非
+        // && || !
+        // 由布尔值参与的逻辑运算  也可以采用表达式参与运算
+        // 短路运算 短路时，第二个表达式不执行
+        // 表达式1 && 表达式2 第一个为真 返回表达式2
+        //                             第一个为假 返回表达式1
+        console.log(0 && 520);
+        console.log(520 && 1314);
+        console.log('--------------')
+
+        // 表达式1 || 表达式2 第一个为真 返回表达式1
+        //                             第一个为假 返回表达式2
+        console.log(0 || 520);
+        console.log(1314 || false);
+
+        //赋值运算符
+        // = += -= *= /=
+
+        //运算符优先级
+        //一、 ()
+        //二、 ++ -- ！       (单目运算符)
+        //三、 先 */% 后+-    (算术运算符)
+        //四、 > >= < <=      (关系运算符)
+        //五、 == != === !==  (等于运算符)
+        //六、 && ||          (逻辑运算符)
+        //七、 =              (赋值运算符)
+        //八、 ,              (逗号运算符)
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
