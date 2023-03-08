@@ -239,7 +239,7 @@
         <label for="img_eye">
             <img src="imgsource/eye-close.png" id="img_eye">
         </label>
-        <input type="password" name="" id="btn_pwd1" value="郭政都是个傻逼">
+        <input type="password" name="" id="btn_pwd1" value="ls">
     </div>
 
     <script>
@@ -304,7 +304,7 @@
     </script>
 
     <div id="btn_bar6">
-        <input type="text" value="郭政都傻逼" id="input_bar6">
+        <input type="text" value="ls" id="input_bar6">
     </div>
 
     <script>
@@ -313,7 +313,7 @@
         // 失去焦点 onblur
         var btn_bar6 = document.getElementById('input_bar6');
         btn_bar6.onfocus = function () {
-            if (this.value === '郭政都傻逼') {
+            if (this.value === 'ls') {
                 this.value = '';
                 this.style.color = '#333';
             }
@@ -323,7 +323,7 @@
         btn_bar6.onblur = function () {
             // console.log('我失去了焦点');
             if (this.value === '') {
-                this.value = '郭政都傻逼';
+                this.value = 'ls';
                 this.style.color = '#999';
             }
         }
